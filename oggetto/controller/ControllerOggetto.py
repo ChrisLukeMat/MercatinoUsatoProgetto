@@ -3,9 +3,8 @@ class ControllerOggetto():
         self.model = oggetto
 
     def get_id_oggetto(self):
-        # return self.model.id
-        pass
-
+        return self.model.id
+        
     def get_proprietario_oggetto(self):
         return self.model.proprietario
 
