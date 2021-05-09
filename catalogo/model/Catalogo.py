@@ -1,6 +1,16 @@
+import os
+import pickle
+
+
 class Catalogo():
     def __init__(self):
         self.catalogo = []
+
+        if os.path.isfile('catalogo/data/catalogo_salvato.pickle'):
+            print("esiste")
+            with open('catalogo/data/catalogo_salvato.pickle', 'rb') as f:
+                catalogo_salvato = pickle.load(f)
+            self.model = catalogo_salvato
 
     def aggiungi_oggetto(self, oggetto):
         self.catalogo.append(oggetto)
@@ -17,3 +27,7 @@ class Catalogo():
 
     def get_catalogo(self):
         return self.catalogo
+
+    def save_data(self):
+        with open('catalogo/data/catalogo_salvato.pickle', 'wb') as handle:
+            pickle.dump(self.model, handle, pickle.HIGHEST_PROTOCOL)
