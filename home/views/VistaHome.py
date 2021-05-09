@@ -10,10 +10,12 @@ class VistaHome(QWidget):
 
         v_layout.addWidget(self.get_generic_button("Catalogo", self.go_catalogo()))
         v_layout.addWidget(self.get_generic_button("Lista Clienti", self.go_lista_clienti()))
+        v_layout.addWidget(self.get_generic_button("Lista Dipendenti", self.go_lista_dipendenti()))
+        v_layout.addWidget(self.get_generic_button("Lista Transazioni", self.go_lista_transazioni()))
 
 
         self.setLayout(v_layout)
-        self.resize(400,300)
+        self.resize(300,250)
         self.setWindowTitle("Mercatino")
 
 
@@ -31,3 +33,13 @@ class VistaHome(QWidget):
         pass
        # self.vista_lista_clienti = VistaListaClienti()
        # self.vista_lista_clienti.show()
+
+    def go_lista_dipendenti(self):
+        pass
+       # self.vista_lista_dipendenti = VistaListaDipendenti()
+       # self.vista_lista_dipendenti.show()
+
+    def go_lista_transazioni(self):
+        pass
+       # self.vista_lista_transazioni = VistaListaTransazioni()
+       # self.vista_lista_transazioni.show()
