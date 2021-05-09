@@ -2,6 +2,12 @@ class ControllerOggetto():
     def __init__(self, oggetto):
         self.model = oggetto
 
+    def get_nome_oggetto(self):
+        return self.model.nome
+
+    def set_nome_oggetto(self,nome):
+        self.model.set_nome(nome)
+
     def get_id_oggetto(self):
         return self.model.id
         
