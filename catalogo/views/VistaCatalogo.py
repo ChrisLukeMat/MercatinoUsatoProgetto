@@ -1,8 +1,8 @@
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QSizePolicy
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QSizePolicy, QMessageBox
 
 from catalogo.controller.ControllerCatalogo import ControllerCatalogo
-from catalogo.views import VistaInserisciOggetto
+from catalogo.views.VistaInserisciOggetto import VistaInserisciOggetto
 from oggetto.views.VistaOggetto import VistaOggetto
 
 
@@ -10,16 +10,16 @@ class VistaCatalogo(QWidget):
     def __init__(self, parent=None):
         super(VistaCatalogo, self).__init__(parent)
 
-        h_layout = QHBoxLayout()
         self.controller = ControllerCatalogo()
         self.list_view = QListView()
         self.update_ui()
+        h_layout = QHBoxLayout()
         h_layout.addWidget(self.list_view)
 
         buttons_layout = QVBoxLayout()
         buttons_layout.addWidget(self.get_generic_button("Apri",self.show_selected_info))
         buttons_layout.addWidget(self.get_generic_button("Nuovo",self.show_new_oggetto))
-        buttons_layout.addWidget(self.get_generic_button("Modifica", self.show_modifica_oggetto))
+        buttons_layout.addWidget(self.get_generic_button("Elimina", self.elimina_oggetto))
 
         buttons_layout.addStretch()
         h_layout.addLayout(buttons_layout)
@@ -37,16 +37,22 @@ class VistaCatalogo(QWidget):
     def show_selected_info(self):
         selected = self.list_view.selectedIndexes()[0].row()
         oggetto_selezionato = self.controller.get_oggetto_by_index(selected)
-        self.vista_oggetto = VistaOggetto(oggetto_selezionato, self.controller.rimuovi_oggetto_by_id, self.update_ui)
+        self.vista_oggetto = VistaOggetto(oggetto_selezionato)
         self.vista_oggetto.show()
 
     def show_new_oggetto(self):
         self.vista_inserisci_oggetto = VistaInserisciOggetto(self.controller,self.update_ui)
         self.vista_inserisci_oggetto.show()
 
-    def show_modifica_oggetto(self):
-       # self.vista_modifica_oggetto = VistaModificaOggetto()
-       pass
+    #def show_modifica_oggetto(self):
+       # self.vista_modifica_oggetto = VistaModificaOggetto()ù
+
+    def elimina_oggetto(self):
+        selected = self.list_view.selectedIndexes()[0].row()
+        oggetto_selezionato = self.controller.get_oggetto_by_index(selected)
+        self.controller.rimuovi_oggetto_by_id(oggetto_selezionato.id)
+        QMessageBox.Ok("L' oggetto: {} e' stato eliminato".format(oggetto_selezionato.nome))
+
 
     def update_ui(self):
         self.listview_model = QStandardItemModel(self.list_view)
