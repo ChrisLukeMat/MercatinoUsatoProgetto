@@ -9,9 +9,9 @@ class Dipendente:
         self.luogo_nascita = luogo_nascita
         self.telefono = telefono
         self.indirizzo = indirizzo
-        self.id_dipendente = int(main.cod_dipendente) + 1
+        self.id_dipendente = main.cod_dipendente + 1
         str(self.id_dipendente) + "d"
-        ++int(main.cod_dipendente)
+        ++main.cod_dipendente
 
     def set_nome(self, nome):
         self.nome = nome
