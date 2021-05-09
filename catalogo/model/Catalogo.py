@@ -7,7 +7,7 @@ class Catalogo():
 
     def rimuovi_oggetto_by_id(self, id):
         for oggetto in self.catalogo:
-            if oggetto.id == id
+            if oggetto.id == id:
                 self.catalogo.remove(oggetto)
                 return True
         return False
