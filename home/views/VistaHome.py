@@ -8,10 +8,10 @@ class VistaHome(QWidget):
         super(VistaHome, self).__init__(parent)
         v_layout = QVBoxLayout()
 
-        v_layout.addWidget(self.get_generic_button("Catalogo", self.go_catalogo()))
-        v_layout.addWidget(self.get_generic_button("Lista Clienti", self.go_lista_clienti()))
-        v_layout.addWidget(self.get_generic_button("Lista Dipendenti", self.go_lista_dipendenti()))
-        v_layout.addWidget(self.get_generic_button("Lista Transazioni", self.go_lista_transazioni()))
+        v_layout.addWidget(self.get_generic_button("Catalogo", self.go_catalogo))
+        v_layout.addWidget(self.get_generic_button("Lista Clienti", self.go_lista_clienti))
+        v_layout.addWidget(self.get_generic_button("Lista Dipendenti", self.go_lista_dipendenti))
+        v_layout.addWidget(self.get_generic_button("Lista Transazioni", self.go_lista_transazioni))
 
 
         self.setLayout(v_layout)
@@ -22,6 +22,7 @@ class VistaHome(QWidget):
     def get_generic_button(self,titolo, on_click):
         button = QPushButton(titolo)
         button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        button.clicked.connect(on_click)
         return button
 
     def go_catalogo(self):
