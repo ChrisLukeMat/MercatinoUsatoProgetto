@@ -3,7 +3,7 @@ from listadipendenti.model.ListaDipendenti import ListaDipendenti
 class ControllerListaDipendenti:
     def __init__(self):
         super(ControllerListaDipendenti, self).__init__()
-        self.model = ListaDipendenti
+        self.model = ListaDipendenti()
 
     def aggiungi_dipendente(self, dipendente):
         self.model.aggiungi_dipendente(dipendente)
@@ -16,3 +16,6 @@ class ControllerListaDipendenti:
 
     def get_lista_dipendenti(self):
         return self.model.get_lista_dipendenti()
+
+    def save_data(self):
+        self.model.save_data()
