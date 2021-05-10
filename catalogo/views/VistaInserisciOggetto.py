@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import QWidget, QMessageBox, QLabel, QVBoxLayout, QLineEdit, QSpacerItem, QSizePolicy, QPushButton
+from PyQt5.QtCore import Qt
 
 from oggetto.model.Oggetto import Oggetto
 
@@ -28,6 +29,8 @@ class VistaInserisciOggetto(QWidget):
 
         v_layout.addWidget(QLabel("Descrizione"))
         self.text_descrizione = QLineEdit(self)
+        self.text_descrizione.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.text_descrizione.setAlignment(Qt.AlignTop)
         v_layout.addWidget(self.text_descrizione)
 
         v_layout.addWidget(QLabel("Categoria"))
@@ -41,6 +44,7 @@ class VistaInserisciOggetto(QWidget):
         v_layout.addWidget(btn_ok)
 
         self.setLayout(v_layout)
+        self.resize(300,450)
         self.setWindowTitle('Nuovo Oggetto')
 
     def add_oggetto(self):
