@@ -1,6 +1,5 @@
-import main
-
 class Dipendente:
+    cod_dipendente = 0
     def __init__(self, nome, cognome, cf, data_nascita, luogo_nascita, telefono, indirizzo):
         self.nome = nome
         self.cognome = cognome
@@ -9,9 +8,9 @@ class Dipendente:
         self.luogo_nascita = luogo_nascita
         self.telefono = telefono
         self.indirizzo = indirizzo
-        self.id_dipendente = main.cod_dipendente + 1
+        self.id_dipendente = self.cod_dipendente + 1
         str(self.id_dipendente) + "d"
-        ++main.cod_dipendente
+        self.cod_dipendente += 1
 
     def set_nome(self, nome):
         self.nome = nome
