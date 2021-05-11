@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QMessageBox, QLabel, QVBoxLayout, QLineEdit, QSpacerItem, QSizePolicy, QPushButton
 from PyQt5.QtCore import Qt
-
+from datetime import datetime
 from oggetto.model.Oggetto import Oggetto
 
 
@@ -25,6 +25,7 @@ class VistaInserisciOggetto(QWidget):
 
         v_layout.addWidget(QLabel("Data esposizione"))
         self.text_data_esposizione = QLineEdit(self)
+        self.text_data_esposizione.setText(datetime.now().strftime('%d-%m-%Y'))
         v_layout.addWidget(self.text_data_esposizione)
 
         v_layout.addWidget(QLabel("Descrizione"))

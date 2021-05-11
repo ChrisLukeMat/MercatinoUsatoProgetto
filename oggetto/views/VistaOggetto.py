@@ -11,18 +11,18 @@ class VistaOggetto(QWidget):
         h_layout = QHBoxLayout()
         v_layout = QVBoxLayout()
 
-        v_layout.addWidget(self.get_generic_label(self.controller.get_nome_oggetto()))
-        v_layout.addWidget(self.get_generic_label(self.controller.get_prezzo_oggetto()))
-        v_layout.addWidget(self.get_generic_label(self.controller.get_id_oggetto()))
-        v_layout.addWidget(self.get_generic_label(self.controller.get_proprietario_oggetto()))
-        v_layout.addWidget(self.get_generic_label(self.controller.get_data_esposizione_oggetto()))
-        v_layout.addWidget(self.get_generic_label(self.controller.get_descrizione_oggetto()))
+        v_layout.addWidget(self.get_generic_label("Nome: " + self.controller.get_nome_oggetto()))
+        v_layout.addWidget(self.get_generic_label("Prezzo: " + self.controller.get_prezzo_oggetto() + "€"))
+        v_layout.addWidget(self.get_generic_label("Id: " + str(self.controller.get_id_oggetto())))
+        v_layout.addWidget(self.get_generic_label("Proprietario: " + self.controller.get_proprietario_oggetto()))
+        v_layout.addWidget(self.get_generic_label("Data esposizione: " + self.controller.get_data_esposizione_oggetto()))
+        v_layout.addWidget(self.get_generic_label("Descrizione: " + self.controller.get_descrizione_oggetto()))
 
         h_layout.addLayout(v_layout)
 
         buttons_layout = QVBoxLayout()
-        buttons_layout.addWidget(self.get_generic_button("Modifica", self.show_modifica_oggetto))
-      #  buttons_layout.addWidget(self.get_generic_button("Elimina", self.show_elimina_oggetto))
+       # buttons_layout.addWidget(self.get_generic_button("Modifica", self.show_modifica_oggetto))
+       # buttons_layout.addWidget(self.get_generic_button("Elimina", self.show_elimina_oggetto))
         h_layout.addLayout(buttons_layout)
 
         self.setLayout(h_layout)
@@ -30,9 +30,9 @@ class VistaOggetto(QWidget):
         self.setWindowTitle("{}".format(oggetto.nome))#provare senza format
 
     def get_generic_label(self, text):
-        label = QLabel(text)
+        label = QLabel(str(text))
         font = label.font()
-        font.setPointSize(30)
+        font.setPointSize(20)
         label.setFont(font)
         return label
 
