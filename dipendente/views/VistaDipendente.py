@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QPushButt
 
 from dipendente.controller.ControllerDipendente import ControllerDipendente
 
-class VistaDipendente:
+class VistaDipendente(QWidget):
     def __init__(self, dipendente, parent=None):
         super(VistaDipendente, self).__init__()
         self.controller = ControllerDipendente(dipendente)
@@ -22,7 +22,7 @@ class VistaDipendente:
         h_layout.addLayout(v_layout)
 
         buttons_layout = QVBoxLayout()
-        buttons_layout.addWidget(self.get_generic_button("Modifica", self.show_modifica_dipendente))
+        #buttons_layout.addWidget(self.get_generic_button("Modifica", self.show_modifica_dipendente))
         #buttons_layout.addWidget(self.get_generic_button("Elimina", self.show_elimina_dipendente))
         h_layout.addLayout(buttons_layout)
 
@@ -31,7 +31,7 @@ class VistaDipendente:
         self.setWindowTitle("{} {}".format(dipendente.get_nome, dipendente.get_cognome()))
 
     def get_generic_label(self, text):
-        label = QLabel(text)
+        label = QLabel(str(text))
         font = label.font()
         font.setPointSize(30)
         label.setFont(font)
