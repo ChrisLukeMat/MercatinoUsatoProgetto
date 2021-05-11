@@ -60,9 +60,9 @@ class VistaListaDipendenti(QWidget):
             item = QStandardItem()
             item.setText(dipendente.nome + " " + dipendente.cognome)
             item.setEditable(False)
-            #font = item.font()
-            #font.setFontSize(18)
-            #item.setFont(font)
+            font = item.font()
+            font.setPointSize(10)
+            item.setFont(font)
             self.listview_model.appendRow(item)
         self.list_view.setModel(self.listview_model)
 
