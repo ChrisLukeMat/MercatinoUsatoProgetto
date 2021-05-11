@@ -51,7 +51,9 @@ class VistaCatalogo(QWidget):
         selected = self.list_view.selectedIndexes()[0].row()
         oggetto_selezionato = self.controller.get_oggetto_by_index(selected)
         self.controller.rimuovi_oggetto_by_id(oggetto_selezionato.id)
-        QMessageBox.Ok("L' oggetto: {} e' stato eliminato".format(oggetto_selezionato.nome))
+        self.update_ui()
+        QMessageBox.critical(self, 'Eliminato', "L' oggetto: {} e' stato eliminato".format(oggetto_selezionato.nome), QMessageBox.Ok,
+                             QMessageBox.Ok)
 
 
     def update_ui(self):
