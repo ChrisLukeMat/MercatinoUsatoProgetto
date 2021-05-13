@@ -47,6 +47,7 @@ class VistaOggetto(QWidget):
 
         self.setLayout(h_layout)
         self.resize(500, 400)
+        self.setSizePolicy(QSizePolicy.Minimum,QSizePolicy.Minimum)
         self.setWindowTitle("{}".format(oggetto.nome))#provare senza format
 
     def get_generic_label(self, text):
