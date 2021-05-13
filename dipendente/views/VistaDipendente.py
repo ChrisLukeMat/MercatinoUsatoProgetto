@@ -23,7 +23,6 @@ class VistaDipendente(QWidget):
         h_layout.addLayout(v_layout)
 
         buttons_layout = QVBoxLayout()
-        buttons_layout.addWidget(self.get_generic_button("Modifica", self.show_modifica_dipendente))
         #buttons_layout.addWidget(self.get_generic_button("Elimina", self.show_elimina_dipendente))
         h_layout.addLayout(buttons_layout)
 

@@ -1,9 +1,10 @@
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QSizePolicy, QMessageBox
 
-from dipendente.views.VistaInserisciDipendente import VistaInserisciDipendente
+from listadipendenti.views.VistaInserisciDipendente import VistaInserisciDipendente
 from listadipendenti.controller.ControllerListaDipendenti import ControllerListaDipendenti
 from dipendente.views.VistaDipendente import VistaDipendente
+from listadipendenti.views.VistaModificaDipendente import VistaModificaDipendente
 
 
 class VistaListaDipendenti(QWidget):
@@ -20,6 +21,7 @@ class VistaListaDipendenti(QWidget):
         buttons_layout.addWidget(self.get_generic_button("Apri", self.show_selected_info))
         buttons_layout.addWidget(self.get_generic_button("Nuovo", self.show_new_dipendente))
         buttons_layout.addWidget(self.get_generic_button("Elimina", self.show_elimina_dipendente))
+        buttons_layout.addWidget(self.get_generic_button("Modifica", self.show_modifica_dipendente))
 
         buttons_layout.addStretch()
         h_layout.addLayout(buttons_layout)
@@ -35,24 +37,33 @@ class VistaListaDipendenti(QWidget):
         return button
 
     def show_selected_info(self):
-        selected = self.list_view.selectedIndexes()[0].row()
-        dipendente_selezionato = self.controller.get_dipendente_by_index(selected)
-        self.vista_dipendente = VistaDipendente(dipendente_selezionato)#, self.controller.rimuovi_dipendente_by_id, self.update_ui)
-        self.vista_dipendente.show()
+        if len(self.list_view.selectedIndexes()) > 0:
+            selected = self.list_view.selectedIndexes()[0].row()
+            dipendente_selezionato = self.controller.get_dipendente_by_index(selected)
+            self.vista_dipendente = VistaDipendente(dipendente_selezionato)#, self.controller.rimuovi_dipendente_by_id, self.update_ui)
+            self.vista_dipendente.show()
 
     def show_new_dipendente(self):
         self.vista_inserisci_dipendente = VistaInserisciDipendente(self.controller, self.update_ui)
         self.vista_inserisci_dipendente.show()
 
     def show_modifica_dipendente(self):
-        # self.vista_modifica_dipendente = VistaModificaDipendente()
-        pass
+        if len(self.list_view.selectedIndexes()) > 0:
+            selected = self.list_view.selectedIndexes()[0].row()
+            dipendente_selezionato = self.controller.get_dipendente_by_index(selected)
+            self.vista_modifica_dipendente = VistaModificaDipendente(dipendente_selezionato, self.update_ui)
+            self.vista_modifica_dipendente.show()
 
     def show_elimina_dipendente(self):
-        selected = self.list_view.selectedIndexes()[0].row()
-        dipendente_selezionato = self.controller.get_dipendente_by_index(selected)
-        self.controller.rimuovi_dipendente_by_id(dipendente_selezionato.get_id)
-        QMessageBox.Ok("Il dipendente: {} {} e' stato eliminato".format(dipendente_selezionato.get_nome, dipendente_selezionato.get_cognome))
+        if len(self.list_view.selectedIndexes()) > 0:
+            selected = self.list_view.selectedIndexes()[0].row()
+            dipendente_selezionato = self.controller.get_dipendente_by_index(selected)
+            self.controller.rimuovi_dipendente_by_id(dipendente_selezionato.get_id_dipendente())
+            self.update_ui()
+            QMessageBox.critical(self, 'Eliminato', "Il dipendente: {} {} e' stato eliminato".format(dipendente_selezionato.nome,
+                                                                                                    dipendente_selezionato.cognome),
+                                     QMessageBox.Ok,
+                                     QMessageBox.Ok)
 
     def update_ui(self):
         self.listview_model = QStandardItemModel(self.list_view)
