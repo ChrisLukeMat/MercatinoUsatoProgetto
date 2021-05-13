@@ -26,3 +26,6 @@ class Oggetto:
 
     def set_descrizione(self, descrizione):
         self.descrizione = descrizione
+
+    def set_categoria(self, categoria):
+        self.categoria = categoria

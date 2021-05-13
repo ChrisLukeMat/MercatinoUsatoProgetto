@@ -449,9 +449,12 @@ QLineEdit::disabled
 /*-----QTextEdit-----*/
 QTextEdit
 {
-	background-color: #ffffff;
-	color: #010201;
+	background-color: #525251;
+	color: #ffffff;
+	border-width: 1px;
+	border-radius: 3px;
 	border-color: #051a39;
+	padding: 2px;
 
 }
 
@@ -460,7 +463,10 @@ QTextEdit::disabled
 {
 	background-color: #404040;
 	color: #656565;
+	border-width: 1px;
+	border-radius: 3px;
 	border-color: #051a39;
+	padding: 2px;
 
 }
 

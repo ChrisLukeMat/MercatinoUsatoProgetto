@@ -4,6 +4,7 @@ from PyQt5.QtCore import Qt
 
 from catalogo.controller.ControllerCatalogo import ControllerCatalogo
 from catalogo.views.VistaInserisciOggetto import VistaInserisciOggetto
+from catalogo.views.VistaModificaOggetto import VistaModificaOggetto
 from oggetto.views.VistaOggetto import VistaOggetto
 
 
@@ -38,13 +39,14 @@ class VistaCatalogo(QWidget):
         buttons_layout = QVBoxLayout()
         buttons_layout.addWidget(self.get_generic_button("Apri", self.show_selected_info))
         buttons_layout.addWidget(self.get_generic_button("Nuovo", self.show_new_oggetto))
-        buttons_layout.addWidget(self.get_generic_button("Elimina", self.elimina_oggetto))
+        buttons_layout.addWidget(self.get_generic_button("Elimina", self.show_elimina_oggetto))
+        buttons_layout.addWidget(self.get_generic_button("Modifica", self.show_modifica_oggetto))
 
         buttons_layout.addStretch()
         h_layout.addLayout(buttons_layout)
 
         self.setLayout(h_layout)
-        self.resize(600,300)
+        self.resize(600, 300)
         self.setWindowTitle("Catalogo")
 
     def get_generic_button(self, titolo, on_click):
@@ -61,13 +63,17 @@ class VistaCatalogo(QWidget):
             self.vista_oggetto.show()
 
     def show_new_oggetto(self):
-        self.vista_inserisci_oggetto = VistaInserisciOggetto(self.controller,self.update_ui)
+        self.vista_inserisci_oggetto = VistaInserisciOggetto(self.controller, self.update_ui)
         self.vista_inserisci_oggetto.show()
 
-    #def show_modifica_oggetto(self):
-       # self.vista_modifica_oggetto = VistaModificaOggetto()ù
+    def show_modifica_oggetto(self):
+        if len(self.controller.get_catalogo()) != 0:
+            selected = self.list_view.selectedIndexes()[0].row()
+            oggetto_selezionato = self.controller.get_oggetto_by_index(selected)
+            self.vista_modifica_oggetto = VistaModificaOggetto(self, oggetto_selezionato, self.update_ui())
+            self.vista_modifica_oggetto.show()
 
-    def elimina_oggetto(self):
+    def show_elimina_oggetto(self):
         if len(self.controller.get_catalogo()) != 0:
             selected = self.list_view.selectedIndexes()[0].row()
             oggetto_selezionato = self.controller.get_oggetto_by_index(selected)
