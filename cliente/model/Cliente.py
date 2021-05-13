@@ -1,6 +1,6 @@
 class Cliente:
     cod_cliente = 0
-    def __init__(self, nome, cognome, cf, data_nascita, luogo_nascita, telefono, indirizzo)
+    def __init__(self, nome, cognome, cf, data_nascita, luogo_nascita, telefono, indirizzo):
         self.nome = nome
         self.cognome = cognome
         self.cf = cf
@@ -9,7 +9,7 @@ class Cliente:
         self.telefono = telefono
         self.indirizzo = indirizzo
         self.id_cliente = self.cod_cliente + 1
-        str(self.id_cliente) + "c"
+        self.id_cliente = str(self.id_cliente) + "c"
         self.cod_cliente += 1
 
     def set_nome(self, nome):

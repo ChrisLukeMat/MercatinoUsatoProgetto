@@ -2,8 +2,8 @@ class Oggetto:
     cod_oggetto = 0
     def __init__(self, nome, proprietario, prezzo, data_esposizione, descrizione, categoria):
         self.id = self.cod_oggetto + 1
-        str(self.id) + "o"
-        self.cod_oggetto = self.cod_oggetto + 1
+        self.id = str(self.id) + "o"
+        Oggetto.cod_oggetto = Oggetto.cod_oggetto + 1
 
         self.nome = nome
         self.proprietario = proprietario

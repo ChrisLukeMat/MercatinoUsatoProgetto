@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QSizePolicy
 
 from catalogo.views.VistaCatalogo import VistaCatalogo
+from listaclienti.views.VistaListaClienti import VistaListaClienti
 from listadipendenti.views.VistaListaDipendenti import VistaListaDipendenti
 
 
@@ -32,9 +33,8 @@ class VistaHome(QWidget):
 
 
     def go_lista_clienti(self):
-        pass
-       # self.vista_lista_clienti = VistaListaClienti()
-       # self.vista_lista_clienti.show()
+       self.vista_lista_clienti = VistaListaClienti()
+       self.vista_lista_clienti.show()
 
     def go_lista_dipendenti(self):
        self.vista_lista_dipendenti = VistaListaDipendenti()

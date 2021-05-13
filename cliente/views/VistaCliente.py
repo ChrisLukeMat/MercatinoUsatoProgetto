@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QPushButt
 
 from cliente.controller.ControllerCliente import ControllerCliente
 
-class VistaCliente:
+class VistaCliente(QWidget):
     def __init__(self, cliente, parent=None):
         super(VistaCliente, self).__init__()
         self.controller = ControllerCliente(cliente)
@@ -22,7 +22,7 @@ class VistaCliente:
         h_layout.addLayout(v_layout)
 
         buttons_layout = QVBoxLayout()
-        buttons_layout.addWidget(self.get_generic_button("Modifica", self.show_modifica_cliente))
+        #buttons_layout.addWidget(self.get_generic_button("Modifica", self.show_modifica_cliente))
         #buttons_layout.addWidget(self.get_generic_button("Elimina", self.show_elimina_cliente))
         h_layout.addLayout(buttons_layout)
 

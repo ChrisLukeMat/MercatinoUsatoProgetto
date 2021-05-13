@@ -1,5 +1,6 @@
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QSizePolicy, QMessageBox
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QSizePolicy, QMessageBox, QLabel
+from PyQt5.QtCore import Qt
 
 from catalogo.controller.ControllerCatalogo import ControllerCatalogo
 from catalogo.views.VistaInserisciOggetto import VistaInserisciOggetto
@@ -14,11 +15,29 @@ class VistaCatalogo(QWidget):
         self.list_view = QListView()
         self.update_ui()
         h_layout = QHBoxLayout()
-        h_layout.addWidget(self.list_view)
+
+        catalogo_layout = QVBoxLayout()
+        labels_layout = QHBoxLayout()
+
+        label1 = QLabel("Articolo", self)
+        label1.setAlignment(Qt.AlignCenter)
+        label1.setStyleSheet("background-color: gray;")
+        labels_layout.addWidget(label1)
+
+        label2 = QLabel("Prezzo", self)
+        label2.setAlignment(Qt.AlignCenter)
+        label2.setStyleSheet("background-color: gray;")
+        labels_layout.addWidget(label2)
+
+        catalogo_layout.addLayout(labels_layout)
+
+        catalogo_layout.addWidget(self.list_view)
+
+        h_layout.addLayout(catalogo_layout)
 
         buttons_layout = QVBoxLayout()
-        buttons_layout.addWidget(self.get_generic_button("Apri",self.show_selected_info))
-        buttons_layout.addWidget(self.get_generic_button("Nuovo",self.show_new_oggetto))
+        buttons_layout.addWidget(self.get_generic_button("Apri", self.show_selected_info))
+        buttons_layout.addWidget(self.get_generic_button("Nuovo", self.show_new_oggetto))
         buttons_layout.addWidget(self.get_generic_button("Elimina", self.elimina_oggetto))
 
         buttons_layout.addStretch()
@@ -35,10 +54,11 @@ class VistaCatalogo(QWidget):
         return button
 
     def show_selected_info(self):
-        selected = self.list_view.selectedIndexes()[0].row()
-        oggetto_selezionato = self.controller.get_oggetto_by_index(selected)
-        self.vista_oggetto = VistaOggetto(oggetto_selezionato)
-        self.vista_oggetto.show()
+        if len(self.list_view.selectedIndexes()) > 0:
+            selected = self.list_view.selectedIndexes()[0].row()
+            oggetto_selezionato = self.controller.get_oggetto_by_index(selected)
+            self.vista_oggetto = VistaOggetto(oggetto_selezionato)
+            self.vista_oggetto.show()
 
     def show_new_oggetto(self):
         self.vista_inserisci_oggetto = VistaInserisciOggetto(self.controller,self.update_ui)

@@ -59,10 +59,10 @@ class VistaListaClienti(QWidget):
         for cliente in self.controller.get_lista_clienti():
             i = 1
             item = QStandardItem()
-            item.setText(i + ") " + cliente.nome + " | " + cliente.cognome)
+            item.setText(str(i) + ") " + cliente.nome + " | " + cliente.cognome)
             item.setEditable(False)
             font = item.font()
-            font.setFontSize(18)
+            font.setPointSize(18)
             item.setFont(font)
             self.listview_model.appendRow(item)
             i = int(i) + 1
