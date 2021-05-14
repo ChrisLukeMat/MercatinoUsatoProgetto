@@ -20,6 +20,7 @@ class VistaListaClienti(QWidget):
         buttons_layout.addWidget(self.get_generic_button("Apri", self.show_selected_info))
         buttons_layout.addWidget(self.get_generic_button("Nuovo", self.show_new_cliente))
         buttons_layout.addWidget(self.get_generic_button("Elimina", self.show_elimina_cliente))
+        buttons_layout.addWidget(self.get_generic_button("Modifica", self.show_modifica_cliente))
 
         buttons_layout.addStretch()
         h_layout.addLayout(buttons_layout)
