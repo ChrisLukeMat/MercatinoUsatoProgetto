@@ -3,41 +3,41 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QHBoxLayout
 import datetime as dt
 
 
-class VistaModificaDipendente(QWidget):
-    def __init__(self, dipendente, callback, parent=None):
-        super(VistaModificaDipendente, self).__init__(parent)
-        self.dipendente = dipendente
+class VistaModificaCliente(QWidget):
+    def __init__(self, cliente, callback, parent=None):
+        super(VistaModificaCliente, self).__init__(parent)
+        self.cliente = cliente
         self.callback = callback
 
         v_layout = QVBoxLayout()
         v_layout.addWidget(QLabel("Nome"))
         self.text_nome = QLineEdit(self)
-        self.text_nome.setText(dipendente.get_nome())
+        self.text_nome.setText(cliente.get_nome())
         v_layout.addWidget(self.text_nome)
 
         v_layout.addWidget(QLabel("Cognome"))
         self.text_cognome = QLineEdit(self)
-        self.text_cognome.setText(dipendente.get_cognome())
+        self.text_cognome.setText(cliente.get_cognome())
         v_layout.addWidget(self.text_cognome)
 
         v_layout.addWidget(QLabel("Codice fiscale"))
         self.text_cf = QLineEdit(self)
-        self.text_cf.setText(dipendente.get_cf())
+        self.text_cf.setText(cliente.get_cf())
         v_layout.addWidget(self.text_cf)
 
         v_layout.addWidget(QLabel("Indirizzo"))
         self.text_indirizzo = QLineEdit(self)
-        self.text_indirizzo.setText(dipendente.get_indirizzo())
+        self.text_indirizzo.setText(cliente.get_indirizzo())
         v_layout.addWidget(self.text_indirizzo)
 
         v_layout.addWidget(QLabel("Telefono"))
         self.text_telefono = QLineEdit(self)
-        self.text_telefono.setText(dipendente.get_telefono())
+        self.text_telefono.setText(cliente.get_telefono())
         v_layout.addWidget(self.text_telefono)
 
         v_layout.addWidget(QLabel("Luogo nascita"))
         self.text_luogo_nascita = QLineEdit(self)
-        self.text_luogo_nascita.setText(dipendente.get_luogo_nascita())
+        self.text_luogo_nascita.setText(cliente.get_luogo_nascita())
         v_layout.addWidget(self.text_luogo_nascita)
 
         v_layout.addWidget(QLabel("Data nascita"))
@@ -45,19 +45,19 @@ class VistaModificaDipendente(QWidget):
         v_layout_giorno = QVBoxLayout()
         v_layout_giorno.addWidget(QLabel("Giorno"))
         self.text_giorno_nascita = QLineEdit(self)
-        self.text_giorno_nascita.setText(str(dipendente.get_data_nascita().day))
+        self.text_giorno_nascita.setText(str(cliente.get_data_nascita().day))
         v_layout_giorno.addWidget(self.text_giorno_nascita)
 
         v_layout_mese = QVBoxLayout()
         v_layout_mese.addWidget(QLabel("Mese"))
         self.text_mese_nascita = QLineEdit(self)
-        self.text_mese_nascita.setText(str(dipendente.get_data_nascita().month))
+        self.text_mese_nascita.setText(str(cliente.get_data_nascita().month))
         v_layout_mese.addWidget(self.text_mese_nascita)
 
         v_layout_anno = QVBoxLayout()
         v_layout_anno.addWidget(QLabel("Anno"))
         self.text_anno_nascita = QLineEdit(self)
-        self.text_anno_nascita.setText(str(dipendente.get_data_nascita().year))
+        self.text_anno_nascita.setText(str(cliente.get_data_nascita().year))
         v_layout_anno.addWidget(self.text_anno_nascita)
 
         h_layout = QHBoxLayout()
@@ -70,14 +70,14 @@ class VistaModificaDipendente(QWidget):
         v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         btn_ok = QPushButton("OK")
-        btn_ok.clicked.connect(self.modifica_dipendente)
+        btn_ok.clicked.connect(self.modifica_cliente)
         v_layout.addWidget(btn_ok)
 
         self.setLayout(v_layout)
         self.resize(300, 450)
-        self.setWindowTitle('Modifica dipendente')
+        self.setWindowTitle('Modifica cliente')
 
-    def modifica_dipendente(self):
+    def modifica_cliente(self, cliente):
         nome = self.text_nome.text()
         cognome = self.text_cognome.text()
         cf = self.text_cf.text()
@@ -94,13 +94,13 @@ class VistaModificaDipendente(QWidget):
                                  QMessageBox.Ok, QMessageBox.Ok)
         elif self.controlla_data(anno_nascita, mese_nascita, giorno_nascita):
             data_nascita = dt.date(int(anno_nascita), int(mese_nascita), int(giorno_nascita))
-            self.dipendente.set_nome(nome)
-            self.dipendente.set_cognome(cognome)
-            self.dipendente.set_cf(cf)
-            self.dipendente.set_telefono(telefono)
-            self.dipendente.set_indirizzo(indirizzo)
-            self.dipendente.set_data_nascita(data_nascita)
-            self.dipendente.set_luogo_nascita(luogo_nascita)
+            self.cliente.set_nome(nome)
+            self.cliente.set_cognome(cognome)
+            self.cliente.set_cf(cf)
+            self.cliente.set_telefono(telefono)
+            self.cliente.set_indirizzo(indirizzo)
+            self.cliente.set_data_nascita(data_nascita)
+            self.cliente.set_luogo_nascita(luogo_nascita)
             self.callback()
             self.close()
         else:

@@ -1,43 +1,45 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QHBoxLayout, QSpacerItem, QPushButton, QSizePolicy, \
-    QMessageBox
 import datetime as dt
+from PyQt5.QtWidgets import QWidget, QMessageBox, QLabel, QVBoxLayout, QLineEdit, QSpacerItem, QSizePolicy, QPushButton, \
+    QHBoxLayout
+from PyQt5.QtCore import Qt
 
+from cliente.model.Cliente import Cliente
 
-class VistaModificaDipendente(QWidget):
-    def __init__(self, dipendente, callback, parent=None):
-        super(VistaModificaDipendente, self).__init__(parent)
-        self.dipendente = dipendente
+class VistaInserisciCliente(QWidget):
+    def __init__(self, controller, callback, parent=None):
+        super(VistaInserisciCliente, self).__init__(parent)
+        self.controller = controller
         self.callback = callback
 
         v_layout = QVBoxLayout()
         v_layout.addWidget(QLabel("Nome"))
         self.text_nome = QLineEdit(self)
-        self.text_nome.setText(dipendente.get_nome())
+        self.text_nome.setText("CICCIO")
         v_layout.addWidget(self.text_nome)
 
         v_layout.addWidget(QLabel("Cognome"))
         self.text_cognome = QLineEdit(self)
-        self.text_cognome.setText(dipendente.get_cognome())
+        self.text_cognome.setText("Pasticcio")
         v_layout.addWidget(self.text_cognome)
 
         v_layout.addWidget(QLabel("Codice fiscale"))
         self.text_cf = QLineEdit(self)
-        self.text_cf.setText(dipendente.get_cf())
+        self.text_cf.setText("abcdefg12356789")
         v_layout.addWidget(self.text_cf)
 
         v_layout.addWidget(QLabel("Indirizzo"))
         self.text_indirizzo = QLineEdit(self)
-        self.text_indirizzo.setText(dipendente.get_indirizzo())
+        self.text_indirizzo.setText("Via Vittoria 999")
         v_layout.addWidget(self.text_indirizzo)
 
         v_layout.addWidget(QLabel("Telefono"))
         self.text_telefono = QLineEdit(self)
-        self.text_telefono.setText(dipendente.get_telefono())
+        self.text_telefono.setText("3398743389")
         v_layout.addWidget(self.text_telefono)
 
         v_layout.addWidget(QLabel("Luogo nascita"))
         self.text_luogo_nascita = QLineEdit(self)
-        self.text_luogo_nascita.setText(dipendente.get_luogo_nascita())
+        self.text_luogo_nascita.setText("Monte Flex")
         v_layout.addWidget(self.text_luogo_nascita)
 
         v_layout.addWidget(QLabel("Data nascita"))
@@ -45,19 +47,19 @@ class VistaModificaDipendente(QWidget):
         v_layout_giorno = QVBoxLayout()
         v_layout_giorno.addWidget(QLabel("Giorno"))
         self.text_giorno_nascita = QLineEdit(self)
-        self.text_giorno_nascita.setText(str(dipendente.get_data_nascita().day))
+        self.text_giorno_nascita.setText("10")
         v_layout_giorno.addWidget(self.text_giorno_nascita)
 
         v_layout_mese = QVBoxLayout()
         v_layout_mese.addWidget(QLabel("Mese"))
         self.text_mese_nascita = QLineEdit(self)
-        self.text_mese_nascita.setText(str(dipendente.get_data_nascita().month))
+        self.text_mese_nascita.setText("10")
         v_layout_mese.addWidget(self.text_mese_nascita)
 
         v_layout_anno = QVBoxLayout()
         v_layout_anno.addWidget(QLabel("Anno"))
         self.text_anno_nascita = QLineEdit(self)
-        self.text_anno_nascita.setText(str(dipendente.get_data_nascita().year))
+        self.text_anno_nascita.setText("2010")
         v_layout_anno.addWidget(self.text_anno_nascita)
 
         h_layout = QHBoxLayout()
@@ -70,14 +72,14 @@ class VistaModificaDipendente(QWidget):
         v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         btn_ok = QPushButton("OK")
-        btn_ok.clicked.connect(self.modifica_dipendente)
+        btn_ok.clicked.connect(self.add_cliente)
         v_layout.addWidget(btn_ok)
 
         self.setLayout(v_layout)
-        self.resize(300, 450)
-        self.setWindowTitle('Modifica dipendente')
+        self.resize(300,450)
+        self.setWindowTitle('Nuovo cliente')
 
-    def modifica_dipendente(self):
+    def add_cliente(self):
         nome = self.text_nome.text()
         cognome = self.text_cognome.text()
         cf = self.text_cf.text()
@@ -90,17 +92,11 @@ class VistaModificaDipendente(QWidget):
 
         if nome == "" or cognome == "" or cf == "" or giorno_nascita == "" or luogo_nascita == "" or telefono == "" \
                 or indirizzo == "" or mese_nascita == "" or anno_nascita == "":
-            QMessageBox.critical(self, 'Errore', "Per favore, inserisci tutte le informazioni richieste",
-                                 QMessageBox.Ok, QMessageBox.Ok)
+            QMessageBox.critical(self, 'Errore', "Per favore, inserisci tutte le informazioni richieste", QMessageBox.Ok, QMessageBox.Ok)
         elif self.controlla_data(anno_nascita, mese_nascita, giorno_nascita):
             data_nascita = dt.date(int(anno_nascita), int(mese_nascita), int(giorno_nascita))
-            self.dipendente.set_nome(nome)
-            self.dipendente.set_cognome(cognome)
-            self.dipendente.set_cf(cf)
-            self.dipendente.set_telefono(telefono)
-            self.dipendente.set_indirizzo(indirizzo)
-            self.dipendente.set_data_nascita(data_nascita)
-            self.dipendente.set_luogo_nascita(luogo_nascita)
+            self.controller.aggiungi_cliente(
+                Cliente(nome, cognome, cf, data_nascita, luogo_nascita, telefono, indirizzo))
             self.callback()
             self.close()
         else:

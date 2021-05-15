@@ -1,9 +1,10 @@
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QSizePolicy, QMessageBox
 
-from cliente.views.VistaInserisciCliente import VistaInserisciCliente
+from listaclienti.views.VistaInserisciCliente import VistaInserisciCliente
 from listaclienti.controller.ControllerListaClienti import ControllerListaClienti
 from cliente.views.VistaCliente import VistaCliente
+from listaclienti.views.VistaModificaCliente import VistaModificaCliente
 
 
 class VistaListaClienti(QWidget):
@@ -20,6 +21,7 @@ class VistaListaClienti(QWidget):
         buttons_layout.addWidget(self.get_generic_button("Apri", self.show_selected_info))
         buttons_layout.addWidget(self.get_generic_button("Nuovo", self.show_new_cliente))
         buttons_layout.addWidget(self.get_generic_button("Elimina", self.show_elimina_cliente))
+        buttons_layout.addWidget(self.get_generic_button("Modifica", self.show_modifica_cliente))
 
         buttons_layout.addStretch()
         h_layout.addLayout(buttons_layout)
@@ -35,37 +37,44 @@ class VistaListaClienti(QWidget):
         return button
 
     def show_selected_info(self):
-        selected = self.list_view.selectedIndexes()[0].row()
-        cliente_selezionato = self.controller.get_cliente_by_index(selected)
-        self.vista_cliente = VistaCliente(cliente_selezionato)#, self.controller.rimuovi_cliente_by_id, self.update_ui)
-        self.vista_cliente.show()
+        if len(self.list_view.selectedIndexes()) > 0:
+            selected = self.list_view.selectedIndexes()[0].row()
+            cliente_selezionato = self.controller.get_cliente_by_index(selected)
+            self.vista_cliente = VistaCliente(cliente_selezionato)#, self.controller.rimuovi_cliente_by_id, self.update_ui)
+            self.vista_cliente.show()
 
     def show_new_cliente(self):
         self.vista_inserisci_cliente = VistaInserisciCliente(self.controller, self.update_ui)
         self.vista_inserisci_cliente.show()
 
     def show_modifica_cliente(self):
-        # self.vista_modifica_cliente = VistaModificaCliente()
-        pass
+        if len(self.list_view.selectedIndexes()) > 0:
+            selected = self.list_view.selectedIndexes()[0].row()
+            cliente_selezionato = self.controller.get_cliente_by_index(selected)
+            self.vista_modifica_cliente = VistaModificaCliente(cliente_selezionato, self.update_ui)
+            self.vista_modifica_cliente.show()
 
     def show_elimina_cliente(self):
-        selected = self.list_view.selectedIndexes()[0].row()
-        cliente_selezionato = self.controller.get_cliente_by_index(selected)
-        self.controller.rimuovi_cliente_by_id(cliente_selezionato.get_id)
-        QMessageBox.Ok("Il cliente: {} {} e' stato eliminato".format(cliente_selezionato.get_nome, cliente_selezionato.get_cognome))
+        if len(self.list_view.selectedIndexes()) > 0:
+            selected = self.list_view.selectedIndexes()[0].row()
+            cliente_selezionato = self.controller.get_cliente_by_index(selected)
+            self.controller.rimuovi_cliente_by_id(cliente_selezionato.get_id_cliente())
+            self.update_ui()
+            QMessageBox.critical(self, 'Eliminato', "Il cliente: {} {} e' stato eliminato".format(cliente_selezionato.nome,
+                                                                                                    cliente_selezionato.cognome),
+                                     QMessageBox.Ok,
+                                     QMessageBox.Ok)
 
     def update_ui(self):
         self.listview_model = QStandardItemModel(self.list_view)
         for cliente in self.controller.get_lista_clienti():
-            i = 1
             item = QStandardItem()
-            item.setText(str(i) + ") " + cliente.nome + " | " + cliente.cognome)
+            item.setText(cliente.nome + " " + cliente.cognome)
             item.setEditable(False)
             font = item.font()
-            font.setPointSize(18)
+            font.setPointSize(10)
             item.setFont(font)
             self.listview_model.appendRow(item)
-            i = int(i) + 1
         self.list_view.setModel(self.listview_model)
 
     def closeEvent(self, event):
