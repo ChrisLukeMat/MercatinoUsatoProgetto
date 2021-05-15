@@ -69,6 +69,7 @@ class Dipendente:
         if os.path.isfile('listadipendenti/data/lista_dipendenti_salvata.pickle'):
             with open('listadipendenti/data/lista_dipendenti_salvata.pickle', 'rb') as f:
                 lista_dipendenti = pickle.load(f)
-                for dipendente in lista_dipendenti:
-                    codice = dipendente.get_id_dipendente()
-                Dipendente.cod_dipendente = int(str(codice).split('d')[0])
+                if len(lista_dipendenti) != 0:
+                    for dipendente in lista_dipendenti:
+                        codice = dipendente.get_id_dipendente()
+                    Dipendente.cod_dipendente = int(str(codice).split('d')[0])
