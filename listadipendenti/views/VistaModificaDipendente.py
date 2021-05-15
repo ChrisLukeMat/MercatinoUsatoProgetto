@@ -77,7 +77,7 @@ class VistaModificaDipendente(QWidget):
         self.resize(300, 450)
         self.setWindowTitle('Modifica dipendente')
 
-    def modifica_dipendente(self, dipendente):
+    def modifica_dipendente(self):
         nome = self.text_nome.text()
         cognome = self.text_cognome.text()
         cf = self.text_cf.text()
