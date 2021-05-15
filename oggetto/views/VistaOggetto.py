@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy
+from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy, QFrame, QSpacerItem
 
 from oggetto.controller.ControllerOggetto import ControllerOggetto
 
@@ -10,16 +10,7 @@ class VistaOggetto(QWidget):
 
         h_layout = QHBoxLayout()
         v_layout = QVBoxLayout()
-        '''
-        v_layout.addWidget(self.get_generic_label("Nome: " + self.controller.get_nome_oggetto()))
-        v_layout.addWidget(self.get_generic_label("Prezzo: " + self.controller.get_prezzo_oggetto() + "€"))
-        v_layout.addWidget(self.get_generic_label("Id: " + str(self.controller.get_id_oggetto())))
-        v_layout.addWidget(self.get_generic_label("Proprietario: " + self.controller.get_proprietario_oggetto()))
-        v_layout.addWidget(self.get_generic_label("Data esposizione: " + self.controller.get_data_esposizione_oggetto()))
-        v_layout.addWidget(self.get_generic_label("Descrizione: " + self.controller.get_descrizione_oggetto()))
-        
-        h_layout.addLayout(v_layout)
-        '''
+
         v_layout.addWidget(self.get_generic_label("Nome: "))
         v_layout.addWidget(self.get_generic_label("Prezzo: "))
         v_layout.addWidget(self.get_generic_label("Id: "))
@@ -32,11 +23,24 @@ class VistaOggetto(QWidget):
         v_layout2 = QVBoxLayout()
 
         v_layout2.addWidget(self.get_generic_label(str(self.controller.get_nome_oggetto())))
-        v_layout2.addWidget(self.get_generic_label(str(self.controller.get_prezzo_oggetto())))
+        v_layout2.addWidget(self.get_generic_label(str(self.controller.get_prezzo_oggetto()) + " €"))
         v_layout2.addWidget(self.get_generic_label(str(self.controller.get_id_oggetto())))
-        v_layout2.addWidget(self.get_generic_label(str(self.controller.get_proprietario_oggetto())))
+
+        nome_proprietario = self.controller.get_proprietario_oggetto().nome
+        cognome_proprietario = self.controller.get_proprietario_oggetto().cognome
+        v_layout2.addWidget(self.get_generic_label(nome_proprietario + " " + cognome_proprietario))
+
+
         v_layout2.addWidget(self.get_generic_label(str(self.controller.get_data_esposizione_oggetto())))
-        v_layout2.addWidget(self.get_generic_label(str(self.controller.get_descrizione_oggetto())))
+
+        label_descrizione = self.get_generic_label(str(self.controller.get_descrizione_oggetto()))
+
+        #label_descrizione.setMaximumWidth(200)
+        label_descrizione.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        #label_descrizione.setScaledContents(True)
+        v_layout2.addWidget(label_descrizione)
+
+
 
         h_layout.addLayout(v_layout2)
 
@@ -46,8 +50,8 @@ class VistaOggetto(QWidget):
        # h_layout.addLayout(buttons_layout)
 
         self.setLayout(h_layout)
-        self.resize(500, 400)
-        self.setSizePolicy(QSizePolicy.Minimum,QSizePolicy.Minimum)
+        self.resize(400, 400)
+        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.setWindowTitle("{}".format(oggetto.nome))#provare senza format
 
     def get_generic_label(self, text):

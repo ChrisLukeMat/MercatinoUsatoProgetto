@@ -6,7 +6,6 @@ class Catalogo():
     def __init__(self):
         self.catalogo = []
         if os.path.isfile('catalogo/data/catalogo_salvato.pickle'):
-            print("esiste")
             with open('catalogo/data/catalogo_salvato.pickle', 'rb') as f:
                 catalogo_salvato = pickle.load(f)
             self.catalogo = catalogo_salvato

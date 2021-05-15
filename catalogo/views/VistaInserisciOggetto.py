@@ -1,5 +1,9 @@
+import os
+import pickle
+
+from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QMessageBox, QLabel, QVBoxLayout, QLineEdit, QSpacerItem, QSizePolicy, QPushButton, \
-    QHBoxLayout, QTextEdit
+    QHBoxLayout, QTextEdit, QComboBox
 from PyQt5.QtCore import Qt
 from datetime import datetime
 import datetime as dt
@@ -21,10 +25,32 @@ class VistaInserisciOggetto(QWidget):
         self.text_prezzo = QLineEdit(self)
         v_layout.addWidget(self.text_prezzo)
 
+
+
+        self.combo_clienti = QComboBox()
+        self.comboclienti_model = QStandardItemModel(self.combo_clienti)
+        if os.path.isfile('listaclienti/data/lista_clienti_salvata.pickle'):
+            with open('listaclienti/data/lista_clienti_salvata.pickle', 'rb') as f:
+                self.lista_clienti_salvata = pickle.load(f)
+
+            for cliente in self.lista_clienti_salvata:
+                item = QStandardItem()
+                item.setText(cliente.nome + " " + cliente.cognome)
+                item.setEditable(False)
+                font = item.font()
+                font.setPointSize(18)
+                item.setFont(font)
+                self.comboclienti_model.appendRow(item)
+            self.combo_clienti.setModel(self.comboclienti_model)
+
+        v_layout.addWidget(QLabel("Proprietario"))
+        v_layout.addWidget(self.combo_clienti)
+
+        '''
         v_layout.addWidget(QLabel("Proprietario"))
         self.text_proprietario = QLineEdit(self)
         v_layout.addWidget(self.text_proprietario)
-        '''
+        
         v_layout.addWidget(QLabel("Data esposizione"))
         self.text_data_esposizione = QLineEdit(self)
         self.text_data_esposizione.setText(datetime.now().strftime('%d-%m-%Y'))
@@ -81,7 +107,7 @@ class VistaInserisciOggetto(QWidget):
     def add_oggetto(self):
         nome = self.text_nome.text()
         prezzo = self.text_prezzo.text()
-        proprietario = self.text_proprietario.text()
+        proprietario = self.lista_clienti_salvata[self.combo_clienti.currentIndex()]
         giorno_esposizione = self.text_giorno.text()
         mese_esposizione = self.text_mese.text()
         anno_esposizione = self.text_anno.text()

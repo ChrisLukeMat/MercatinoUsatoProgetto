@@ -16,10 +16,12 @@ class VistaModificaOggetto(QWidget):
 
         v_layout.addWidget(QLabel("Prezzo"))
         self.text_prezzo = QLineEdit(self)
+        self.text_prezzo.setText(self.oggetto.prezzo)
         v_layout.addWidget(self.text_prezzo)
 
         v_layout.addWidget(QLabel("Proprietario"))
         self.text_proprietario = QLineEdit(self)
+        self.text_nome.setText(self.oggetto.nome)
         v_layout.addWidget(self.text_proprietario)
 
         v_layout.addWidget(QLabel("Descrizione"))
