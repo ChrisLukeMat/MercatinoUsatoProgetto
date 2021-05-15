@@ -30,7 +30,6 @@ class VistaDipendente(QWidget):
         v_layout2.addWidget(self.get_generic_label(self.controller.get_telefono()))
         v_layout2.addWidget(self.get_generic_label(self.controller.get_id_dipendente()))
 
-        v_layout.addStretch()
         h_layout.addLayout(v_layout)
         h_layout.addLayout(v_layout2)
         h_layout.setContentsMargins(15, 0, 125, 0)
