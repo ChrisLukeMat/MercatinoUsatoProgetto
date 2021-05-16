@@ -13,6 +13,8 @@ class Cliente:
         self.luogo_nascita = luogo_nascita
         self.telefono = telefono
         self.indirizzo = indirizzo
+        self.saldo = 0
+        self.aggiorna_saldo()
         if Cliente.cnt == 0:
             self.aggiorna_codice()
             Cliente.cnt += 1
@@ -65,6 +67,12 @@ class Cliente:
     def get_id_cliente(self):
         return self.id_cliente
 
+    def set_saldo(self, saldo):
+        self.saldo = saldo
+
+    def get_saldo(self):
+        return self.saldo
+
     def aggiorna_codice(self):
         if os.path.isfile('listaclienti/data/lista_clienti_salvata.pickle'):
             with open('listaclienti/data/lista_clienti_salvata.pickle', 'rb') as f:
@@ -73,3 +81,12 @@ class Cliente:
                     for cliente in lista_clienti:
                         codice = cliente.get_id_cliente()
                     Cliente.cod_cliente = int(str(codice).split('c')[0])
+
+    def aggiorna_saldo(self):
+        if os.path.isfile('listaclienti/data/lista_clienti_salvata.pickle'):
+            with open('listaclienti/data/lista_clienti_salvata.pickle', 'rb') as f:
+                lista_clienti = pickle.load(f)
+                if len(lista_clienti) != 0:
+                    for cliente in lista_clienti:
+                        if cliente.get_id_cliente() == self.id_cliente:
+                            self.saldo += cliente.get_saldo()

@@ -48,3 +48,9 @@ class ControllerCliente:
 
     def get_id_cliente(self):
         return self.model.get_id_cliente()
+
+    def set_saldo(self, saldo):
+        self.model.set_saldo(saldo)
+
+    def get_saldo(self):
+        return self.model.get_saldo()
