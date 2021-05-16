@@ -1,3 +1,4 @@
+from PyQt5.QtGui import QTextFormat
 from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy, QFrame, QSpacerItem
 
 from oggetto.controller.ControllerOggetto import ControllerOggetto
@@ -30,13 +31,15 @@ class VistaOggetto(QWidget):
         cognome_proprietario = self.controller.get_proprietario_oggetto().cognome
         v_layout2.addWidget(self.get_generic_label(nome_proprietario + " " + cognome_proprietario))
 
-
         v_layout2.addWidget(self.get_generic_label(str(self.controller.get_data_esposizione_oggetto())))
 
-        label_descrizione = self.get_generic_label(str(self.controller.get_descrizione_oggetto()))
+        label_descrizione = self.get_generic_label(self.controller.get_descrizione_oggetto())
 
+        label_descrizione.setMaximumWidth(500)
+
+        label_descrizione.setTextFormat(QTextFormat.FrameRightMargin)
         #label_descrizione.setMaximumWidth(200)
-        label_descrizione.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        #label_descrizione.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         #label_descrizione.setScaledContents(True)
         v_layout2.addWidget(label_descrizione)
 
