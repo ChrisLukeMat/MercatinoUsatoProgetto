@@ -1,6 +1,10 @@
+import os
+import pickle
+
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QSizePolicy, QSpacerItem, QPushButton, QTextEdit, \
-    QHBoxLayout, QMessageBox
+    QHBoxLayout, QMessageBox, QComboBox
 import datetime as dt
 
 class VistaModificaOggetto(QWidget):
@@ -17,13 +21,32 @@ class VistaModificaOggetto(QWidget):
 
         v_layout.addWidget(QLabel("Prezzo"))
         self.text_prezzo = QLineEdit(self)
-        self.text_prezzo.setText(self.oggetto.prezzo)
+        self.text_prezzo.setText(oggetto.prezzo)
         v_layout.addWidget(self.text_prezzo)
 
-        v_layout.addWidget(QLabel("Proprietario"))
-        self.text_proprietario = QLineEdit(self)
-        self.text_nome.setText(self.oggetto.nome)
-        v_layout.addWidget(self.text_proprietario)
+        self.combo_clienti = QComboBox()
+        self.comboclienti_model = QStandardItemModel(self.combo_clienti)
+        if os.path.isfile('listaclienti/data/lista_clienti_salvata.pickle'):
+            with open('listaclienti/data/lista_clienti_salvata.pickle', 'rb') as f:
+                self.lista_clienti_salvata = pickle.load(f)
+
+            for i in range(0, len(self.lista_clienti_salvata)):
+                if oggetto.proprietario.nome == self.lista_clienti_salvata[i].nome and oggetto.proprietario.cognome == self.lista_clienti_salvata[i].cognome:
+                    app = self.lista_clienti_salvata[0]
+                    self.lista_clienti_salvata[0] = self.lista_clienti_salvata[i]
+                    self.lista_clienti_salvata[i] = app
+
+            for cliente in self.lista_clienti_salvata:
+                item = QStandardItem()
+                item.setText(cliente.nome + " " + cliente.cognome + " " + cliente.id_cliente)
+                item.setEditable(False)
+                font = item.font()
+                font.setPointSize(18)
+                item.setFont(font)
+                self.comboclienti_model.appendRow(item)
+            self.combo_clienti.setModel(self.comboclienti_model)
+            v_layout.addWidget(QLabel("Proprietario"))
+            v_layout.addWidget(self.combo_clienti)
 
         v_layout.addWidget(QLabel("Descrizione"))
         self.text_descrizione = QTextEdit(self)
@@ -34,6 +57,7 @@ class VistaModificaOggetto(QWidget):
 
         v_layout.addWidget(QLabel("Categoria"))
         self.text_categoria = QLineEdit(self)
+        self.text_categoria.setText(oggetto.categoria)
         v_layout.addWidget(self.text_categoria)
 
         v_layout.addWidget(QLabel("Data esposizione"))
@@ -71,7 +95,7 @@ class VistaModificaOggetto(QWidget):
 
         self.setLayout(v_layout)
         self.resize(300, 450)
-        self.setWindowTitle('Nuovo Oggetto')
+        self.setWindowTitle('Modifica Oggetto')
 
     def modifica_oggetto(self):
         nome = self.text_nome.text()

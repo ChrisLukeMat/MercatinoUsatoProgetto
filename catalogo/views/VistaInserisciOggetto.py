@@ -25,8 +25,6 @@ class VistaInserisciOggetto(QWidget):
         self.text_prezzo = QLineEdit(self)
         v_layout.addWidget(self.text_prezzo)
 
-
-
         self.combo_clienti = QComboBox()
         self.comboclienti_model = QStandardItemModel(self.combo_clienti)
         if os.path.isfile('listaclienti/data/lista_clienti_salvata.pickle'):
@@ -35,7 +33,7 @@ class VistaInserisciOggetto(QWidget):
 
             for cliente in self.lista_clienti_salvata:
                 item = QStandardItem()
-                item.setText(cliente.nome + " " + cliente.cognome)
+                item.setText(cliente.nome + " " + cliente.cognome + " " + cliente.id_cliente)
                 item.setEditable(False)
                 font = item.font()
                 font.setPointSize(18)
@@ -46,16 +44,6 @@ class VistaInserisciOggetto(QWidget):
         v_layout.addWidget(QLabel("Proprietario"))
         v_layout.addWidget(self.combo_clienti)
 
-        '''
-        v_layout.addWidget(QLabel("Proprietario"))
-        self.text_proprietario = QLineEdit(self)
-        v_layout.addWidget(self.text_proprietario)
-        
-        v_layout.addWidget(QLabel("Data esposizione"))
-        self.text_data_esposizione = QLineEdit(self)
-        self.text_data_esposizione.setText(datetime.now().strftime('%d-%m-%Y'))
-        v_layout.addWidget(self.text_data_esposizione)
-        '''
         v_layout.addWidget(QLabel("Descrizione"))
         self.text_descrizione = QTextEdit(self)
         self.text_descrizione.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)

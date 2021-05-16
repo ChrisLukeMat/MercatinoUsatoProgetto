@@ -70,7 +70,7 @@ class VistaCatalogo(QWidget):
         if len(self.controller.get_catalogo()) != 0:
             selected = self.list_view.selectedIndexes()[0].row()
             oggetto_selezionato = self.controller.get_oggetto_by_index(selected)
-            self.vista_modifica_oggetto = VistaModificaOggetto(self, oggetto_selezionato, self.update_ui())
+            self.vista_modifica_oggetto = VistaModificaOggetto(oggetto_selezionato, self.update_ui)
             self.vista_modifica_oggetto.show()
 
     def show_elimina_oggetto(self):
@@ -87,7 +87,6 @@ class VistaCatalogo(QWidget):
         self.listview_model = QStandardItemModel(self.list_view)
         i = 1
         for oggetto in self.controller.get_catalogo():
-
             item = QStandardItem()
             item.setText(("{}) " + oggetto.nome + " | " + oggetto.prezzo).format(i))
             item.setEditable(False)
@@ -96,7 +95,6 @@ class VistaCatalogo(QWidget):
             item.setFont(font)
             i = int(i) + 1
             self.listview_model.appendRow(item)
-
         self.list_view.setModel(self.listview_model)
 
     def closeEvent(self, event):
