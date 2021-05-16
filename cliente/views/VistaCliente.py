@@ -20,6 +20,7 @@ class VistaCliente(QWidget):
         v_layout.addWidget(self.get_generic_label("Indirizzo: "))
         v_layout.addWidget(self.get_generic_label("Telefono: "))
         v_layout.addWidget(self.get_generic_label("Id: "))
+        v_layout.addWidget(self.get_generic_label("Saldo: "))
 
         v_layout2.addWidget(self.get_generic_label(self.controller.get_nome()))
         v_layout2.addWidget(self.get_generic_label(self.controller.get_cognome()))
@@ -29,15 +30,12 @@ class VistaCliente(QWidget):
         v_layout2.addWidget(self.get_generic_label(self.controller.get_indirizzo()))
         v_layout2.addWidget(self.get_generic_label(self.controller.get_telefono()))
         v_layout2.addWidget(self.get_generic_label(self.controller.get_id_cliente()))
+        v_layout2.addWidget(self.get_generic_label(str(self.controller.get_saldo()) + " €"))
 
         h_layout.addLayout(v_layout)
         h_layout.addLayout(v_layout2)
         h_layout.setContentsMargins(15, 0, 125, 0)
         h_layout.addStretch()
-
-        #buttons_layout = QVBoxLayout()
-        #buttons_layout.addWidget(self.get_generic_button("Elimina", self.show_elimina_cliente))
-        #h_layout.addLayout(buttons_layout)
 
         self.setLayout(h_layout)
         self.resize(500,400)
@@ -57,6 +55,3 @@ class VistaCliente(QWidget):
         button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         button.clicked.connect(on_click)
         return button
-
-    #def show_modifica_cliente(self):
-        #pass

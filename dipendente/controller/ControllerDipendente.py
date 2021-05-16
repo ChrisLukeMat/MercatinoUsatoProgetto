@@ -1,5 +1,3 @@
-from dipendente.model.Dipendente import Dipendente
-
 class ControllerDipendente:
     def __init__(self, dipendente):
         self.model = dipendente
