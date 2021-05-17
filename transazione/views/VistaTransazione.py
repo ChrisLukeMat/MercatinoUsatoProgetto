@@ -1,13 +1,13 @@
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel
 
-from vendita.controller.ControllerVendita import ControllerVendita
-from vendita.model.Vendita import Vendita
+from transazione.controller.ControllerTransazione import ControllerTransazione
+from transazione.model.Transazione import Transazione
 
-class VistaVendita(QWidget):
-    def __init__(self, vendita, parent=None):
-        super(VistaVendita, self).__init__()
-        self.controller = ControllerVendita(vendita)
+class VistaTransazione(QWidget):
+    def __init__(self, transazione, parent=None):
+        super(VistaTransazione, self).__init__(parent)
+        self.controller = ControllerTransazione(transazione)
 
         h_layout = QHBoxLayout()
         v_layout = QVBoxLayout()

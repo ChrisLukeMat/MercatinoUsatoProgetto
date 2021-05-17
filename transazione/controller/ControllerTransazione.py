@@ -1,4 +1,4 @@
-class ControllerVendita:
+class ControllerTransazione:
     def __init__(self, vendita):
         self.model = vendita
 
@@ -13,3 +13,6 @@ class ControllerVendita:
 
     def get_data_vendita(self):
         return self.model.get_data_vendita()
+
+    def get_id_transazione(self):
+        return self.model.get_id_transazione()
