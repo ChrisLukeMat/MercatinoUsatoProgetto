@@ -1,5 +1,6 @@
 from PyQt5.QtGui import QTextFormat
-from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy, QFrame, QSpacerItem
+from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy
+from PyQt5.QtCore import Qt
 
 from oggetto.controller.ControllerOggetto import ControllerOggetto
 
@@ -35,7 +36,10 @@ class VistaOggetto(QWidget):
 
         h_layout.addLayout(v_layout2)
 
-        h_layout_desc.addWidget(self.get_generic_label("Descrizione: "))
+        label_nome_descrizione = self.get_generic_label("Descrizione: ")
+        label_nome_descrizione.setAlignment(Qt.AlignJustify)
+        h_layout_desc.addWidget(label_nome_descrizione)
+
         descrizione_ogg = self.controller.get_descrizione_oggetto()
 
         for i in range(0, len(descrizione_ogg)):
@@ -43,6 +47,7 @@ class VistaOggetto(QWidget):
                 descrizione_ogg = descrizione_ogg[:i] + "\n" + descrizione_ogg[i:]
 
         label_descrizione = self.get_generic_label(descrizione_ogg)
+        label_descrizione.setAlignment(Qt.AlignJustify)
         h_layout_desc.addWidget(label_descrizione)
 
         v_layout_finale.addLayout(h_layout)

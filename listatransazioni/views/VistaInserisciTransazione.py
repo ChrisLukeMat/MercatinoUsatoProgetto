@@ -6,6 +6,8 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QHBoxLayout, QSpacerItem, QSizePolicy, QPushButton, \
     QComboBox, QMessageBox
 
+from catalogo.controller.ControllerCatalogo import ControllerCatalogo
+from listaclienti.controller.ControllerListaClienti import ControllerListaClienti
 from transazione.model.Transazione import Transazione
 
 
@@ -19,36 +21,43 @@ class VistaInserisciTransazione(QWidget):
 
         self.combo_clienti = QComboBox()
         self.comboclienti_model = QStandardItemModel(self.combo_clienti)
+        '''
         if os.path.isfile('listaclienti/data/lista_clienti_salvata.pickle'):
             with open('listaclienti/data/lista_clienti_salvata.pickle', 'rb') as f:
                 self.lista_clienti_salvata = pickle.load(f)
-            for cliente in self.lista_clienti_salvata:
-                item = QStandardItem()
-                item.setText(cliente.nome + " " + cliente.cognome + " " + cliente.id_cliente)
-                item.setEditable(False)
-                font = item.font()
-                font.setPointSize(18)
-                item.setFont(font)
-                self.comboclienti_model.appendRow(item)
-            self.combo_clienti.setModel(self.comboclienti_model)
+        '''
+        self.controller_lista_clienti = ControllerListaClienti()
+
+        for cliente in self.controller_lista_clienti.get_lista_clienti():
+            item = QStandardItem()
+            item.setText(cliente.nome + " " + cliente.cognome + " " + cliente.id_cliente)
+            item.setEditable(False)
+            font = item.font()
+            font.setPointSize(18)
+            item.setFont(font)
+            self.comboclienti_model.appendRow(item)
+        self.combo_clienti.setModel(self.comboclienti_model)
 
         v_layout.addWidget(QLabel("Acquirente"))
         v_layout.addWidget(self.combo_clienti)
 
         self.combo_catalogo = QComboBox()
         self.combo_catalogo_model = QStandardItemModel(self.combo_catalogo)
+        '''
         if os.path.isfile('catalogo/data/catalogo_salvato.pickle'):
             with open('catalogo/data/catalogo_salvato.pickle', 'rb') as f:
                 self.catalogo_salvato = pickle.load(f)
-            for oggetto in self.catalogo_salvato:
-                item = QStandardItem()
-                item.setText(oggetto.nome + " " + oggetto.prezzo + " " + oggetto.id)
-                item.setEditable(False)
-                font = item.font()
-                font.setPointSize(18)
-                item.setFont(font)
-                self.combo_catalogo_model.appendRow(item)
-            self.combo_catalogo.setModel(self.combo_catalogo_model)
+        '''
+        self.controller_catalogo = ControllerCatalogo()
+        for oggetto in self.controller_catalogo.get_catalogo():
+            item = QStandardItem()
+            item.setText(oggetto.nome + " " + oggetto.prezzo + " €  id:" + oggetto.id)
+            item.setEditable(False)
+            font = item.font()
+            font.setPointSize(18)
+            item.setFont(font)
+            self.combo_catalogo_model.appendRow(item)
+        self.combo_catalogo.setModel(self.combo_catalogo_model)
 
         v_layout.addWidget(QLabel("Oggetto venduto"))
         v_layout.addWidget(self.combo_catalogo)
@@ -87,44 +96,52 @@ class VistaInserisciTransazione(QWidget):
         v_layout.addWidget(btn_ok)
 
         self.setLayout(v_layout)
-        self.resize(300,450)
+        self.resize(300, 300)
         self.setWindowTitle('Nuova Transazione')
 
     def add_transazione(self):
-        acquirente = self.lista_clienti_salvata[self.combo_clienti.currentIndex()]
-        oggetto_venduto = self.catalogo_salvato[self.combo_catalogo.currentIndex()]
         giorno_acquisto = self.text_giorno_acquisto.text()
         mese_acquisto = self.text_mese_acquisto.text()
         anno_acquisto = self.text_anno_acquisto.text()
 
-        if acquirente == "" or oggetto_venduto == "" or giorno_acquisto == "" or mese_acquisto == "" or anno_acquisto == "":
+        #controller_clienti = ControllerListaClienti()
+        if giorno_acquisto == "" or mese_acquisto == "" or anno_acquisto == "":
             QMessageBox.critical(self, 'Errore', "Per favore, inserisci tutte le informazioni richieste", QMessageBox.Ok, QMessageBox.Ok)
-        elif self.controlla_data(anno_acquisto, mese_acquisto, giorno_acquisto):
-            data_acquisto = dt.date(int(anno_acquisto), int(mese_acquisto), int(giorno_acquisto))
-            transazione = Transazione(oggetto_venduto, acquirente, data_acquisto)
-            self.controller.aggiungi_transazione(transazione)
-                #Transazione(oggetto_venduto, acquirente, data_acquisto))
-            transazione.aggiorna_saldo()
-            #ELIMINAZIONE OGGETTO
-            self.callback()
-            self.close()
         else:
-            QMessageBox.critical(self, 'Errore', "Data non corretta",
-                                QMessageBox.Ok, QMessageBox.Ok)
+            try:
+                acquirente = self.controller_lista_clienti.get_cliente_by_index(self.combo_clienti.currentIndex())
+                #acquirente = self.lista_clienti_salvata[self.combo_clienti.currentIndex()]
+                oggetto_venduto = self.controller_catalogo.get_oggetto_by_index(self.combo_catalogo.currentIndex())
+                #oggetto_venduto = self.catalogo_salvato[self.combo_catalogo.currentIndex()]
+                data_acquisto = dt.date(int(anno_acquisto), int(mese_acquisto), int(giorno_acquisto))
 
-    def controlla_data(self, anno, mese, giorno):
-        try:
-            dt.date(int(anno), int(mese), int(giorno))
-        except:
-            return False
-        return True
+                transazione = Transazione(oggetto_venduto, acquirente, data_acquisto)
+                self.controller.aggiungi_transazione(transazione)
 
-    '''
-    def closeEvent(self, event):
-        if os.path.isfile('listaclienti/data/lista_clienti_salvata.pickle'):
-            with open('listaclienti/data/lista_clienti_salvata.pickle', 'rb') as f:
-                lista_clienti = pickle.load(f)
-        if os.path.isfile('listaclienti/data/lista_clienti_salvata.pickle'):
-            with open('listaclienti/data/lista_clienti_salvata.pickle', 'wb') as handle:
-                pickle.dump(lista_clienti, handle, pickle.HIGHEST_PROTOCOL)
-    '''
+                saldo_str = oggetto_venduto.prezzo
+                saldo_parziale = float(saldo_str) / 2
+
+                for cliente in self.controller_lista_clienti.get_lista_clienti():
+                    if oggetto_venduto.proprietario.get_nome() == cliente.nome and\
+                            oggetto_venduto.proprietario.get_cognome() == cliente.cognome and\
+                            oggetto_venduto.proprietario.get_id_cliente() == cliente.id_cliente:
+                        cliente.set_saldo(float(cliente.get_saldo()) + saldo_parziale)
+                        break
+
+                self.controller_lista_clienti.save_data()
+
+                #transazione.aggiorna_saldo(), bisogna aggiornare il saldo del proprietario
+                #ELIMINAZIONE OGGETTO
+                for oggetto in self.controller_catalogo.get_catalogo():
+                    if oggetto_venduto.nome == oggetto.nome and oggetto_venduto.prezzo == oggetto.prezzo and oggetto_venduto.id == oggetto.id:
+                        self.controller_catalogo.rimuovi_oggetto_by_id(oggetto.id)
+                self.controller_catalogo.save_data()
+
+                self.callback()
+                self.close()
+            except ValueError:
+                QMessageBox.critical(self, 'Errore', "Data non corretta",
+                                    QMessageBox.Ok, QMessageBox.Ok)
+            except IndexError:
+                QMessageBox.critical(self, 'Errore', "E' necessario inserire almeno un cliente e un oggetto!",
+                                     QMessageBox.Ok, QMessageBox.Ok)

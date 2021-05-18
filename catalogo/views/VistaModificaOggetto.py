@@ -21,7 +21,7 @@ class VistaModificaOggetto(QWidget):
 
         v_layout.addWidget(QLabel("Prezzo"))
         self.text_prezzo = QLineEdit(self)
-        self.text_prezzo.setText(oggetto.prezzo)
+        self.text_prezzo.setText(str(oggetto.prezzo))
         v_layout.addWidget(self.text_prezzo)
 
         self.combo_clienti = QComboBox()
@@ -114,7 +114,7 @@ class VistaModificaOggetto(QWidget):
             try:
                 data_esposizione = dt.date(int(anno_esposizione), int(mese_esposizione), int(giorno_esposizione))
                 self.oggetto.set_nome(nome)
-                self.oggetto.set_prezzo(prezzo)
+                self.oggetto.set_prezzo(float(prezzo))
                 self.oggetto.set_proprietario(proprietario)
                 self.oggetto.set_data_esposizione(data_esposizione)
                 self.oggetto.set_descrizione(descrizione)
@@ -122,5 +122,5 @@ class VistaModificaOggetto(QWidget):
                 self.callback()
                 self.close()
             except ValueError:
-                QMessageBox.critical(self, 'Errore', "Data non corretta",
+                QMessageBox.critical(self, 'Errore', "Formato dei dati non corretto!",
                                      QMessageBox.Ok, QMessageBox.Ok)

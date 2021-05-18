@@ -48,8 +48,9 @@ class VistaListaTransazioni(QWidget):
         self.listview_model = QStandardItemModel(self.list_view)
         for transazione in self.controller.get_lista_transazioni():
             item = QStandardItem()
-            item.setText(transazione.get_oggetto_venduto().nome + " " + transazione.get_acquirente().nome +" " +
-                         transazione.get_acquirente().cognome + " " + str(transazione.get_data_vendita()))
+            item.setText(transazione.get_oggetto_venduto().nome + " " + transazione.get_oggetto_venduto().prezzo + " € "
+                + transazione.get_data_vendita().strftime("%d-%m-%Y") + "\n"
+                + "Acquirente: " + transazione.get_acquirente().nome + " " + transazione.get_acquirente().cognome + " ")
             item.setEditable(False)
             font = item.font()
             font.setPointSize(10)

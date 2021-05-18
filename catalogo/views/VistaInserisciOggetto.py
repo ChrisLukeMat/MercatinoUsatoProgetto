@@ -40,6 +40,9 @@ class VistaInserisciOggetto(QWidget):
                 item.setFont(font)
                 self.comboclienti_model.appendRow(item)
             self.combo_clienti.setModel(self.comboclienti_model)
+        else:
+            QMessageBox.critical(self, 'Errore', "E' necessario inserire almeno un cliente!",
+                                     QMessageBox.Ok, QMessageBox.Ok)
 
         v_layout.addWidget(QLabel("Proprietario"))
         v_layout.addWidget(self.combo_clienti)
@@ -95,22 +98,27 @@ class VistaInserisciOggetto(QWidget):
     def add_oggetto(self):
         nome = self.text_nome.text()
         prezzo = self.text_prezzo.text()
-        proprietario = self.lista_clienti_salvata[self.combo_clienti.currentIndex()]
         giorno_esposizione = self.text_giorno.text()
         mese_esposizione = self.text_mese.text()
         anno_esposizione = self.text_anno.text()
         descrizione = self.text_descrizione.toPlainText()
         categoria = self.text_categoria.text()
 
-        if nome == "" or prezzo == "" or proprietario == "" or descrizione == "" or categoria == "" or giorno_esposizione == "" or mese_esposizione == "" or anno_esposizione == "":
+        if nome == "" or prezzo == "" or descrizione == "" or categoria == "" or giorno_esposizione == "" or mese_esposizione == "" or anno_esposizione == "":
             QMessageBox.critical(self, 'Errore', "Per favore, inserisci tutte le informazioni richieste", QMessageBox.Ok, QMessageBox.Ok)
         else:
             try:
+                proprietario = self.lista_clienti_salvata[self.combo_clienti.currentIndex()]
                 data_esposizione = dt.date(int(anno_esposizione), int(mese_esposizione), int(giorno_esposizione))
                 self.controller.aggiungi_oggetto(
-                    Oggetto(nome, proprietario, prezzo, data_esposizione, descrizione, categoria))
+                    Oggetto(nome, proprietario, float(prezzo), data_esposizione, descrizione, categoria))
                 self.callback()
                 self.close()
             except ValueError:
-                QMessageBox.critical(self, 'Errore', "Data non corretta",
+                QMessageBox.critical(self, 'Errore', "Formato dei dati non corretto!",
                                      QMessageBox.Ok, QMessageBox.Ok)
+            except IndexError:
+                QMessageBox.critical(self, 'Errore', "E' necessario inserire almeno un cliente!",
+                                     QMessageBox.Ok, QMessageBox.Ok)
+
+

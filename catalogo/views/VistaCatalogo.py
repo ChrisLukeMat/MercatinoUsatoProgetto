@@ -5,6 +5,8 @@ from PyQt5.QtCore import Qt
 from catalogo.controller.ControllerCatalogo import ControllerCatalogo
 from catalogo.views.VistaInserisciOggetto import VistaInserisciOggetto
 from catalogo.views.VistaModificaOggetto import VistaModificaOggetto
+from listatransazioni.controller.ControllerListaTransazioni import ControllerListaTransazioni
+from listatransazioni.views.VistaInserisciTransazione import VistaInserisciTransazione
 from oggetto.views.VistaOggetto import VistaOggetto
 
 
@@ -18,20 +20,6 @@ class VistaCatalogo(QWidget):
         h_layout = QHBoxLayout()
 
         catalogo_layout = QVBoxLayout()
-        labels_layout = QHBoxLayout()
-
-        label1 = QLabel("Articolo", self)
-        label1.setAlignment(Qt.AlignCenter)
-        label1.setStyleSheet("background-color: gray;")
-        labels_layout.addWidget(label1)
-
-        label2 = QLabel("Prezzo", self)
-        label2.setAlignment(Qt.AlignCenter)
-        label2.setStyleSheet("background-color: gray;")
-        labels_layout.addWidget(label2)
-
-        catalogo_layout.addLayout(labels_layout)
-
         catalogo_layout.addWidget(self.list_view)
 
         h_layout.addLayout(catalogo_layout)
@@ -41,6 +29,7 @@ class VistaCatalogo(QWidget):
         buttons_layout.addWidget(self.get_generic_button("Nuovo", self.show_new_oggetto))
         buttons_layout.addWidget(self.get_generic_button("Elimina", self.show_elimina_oggetto))
         buttons_layout.addWidget(self.get_generic_button("Modifica", self.show_modifica_oggetto))
+        #buttons_layout.addWidget(self.get_generic_button("Vendi", self.show_vendi_oggetto))
 
         buttons_layout.addStretch()
         h_layout.addLayout(buttons_layout)
@@ -82,13 +71,12 @@ class VistaCatalogo(QWidget):
             QMessageBox.critical(self, 'Eliminato', "L' oggetto: {} e' stato eliminato".format(oggetto_selezionato.nome), QMessageBox.Ok,
                                  QMessageBox.Ok)
 
-
     def update_ui(self):
         self.listview_model = QStandardItemModel(self.list_view)
         i = 1
         for oggetto in self.controller.get_catalogo():
             item = QStandardItem()
-            item.setText(("{}) " + oggetto.nome + " | " + oggetto.prezzo).format(i))
+            item.setText(oggetto.nome + " " + str(oggetto.prezzo) + " €")
             item.setEditable(False)
             font = item.font()
             font.setPointSize(18)
