@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QSizePolicy
 from catalogo.views.VistaCatalogo import VistaCatalogo
 from listaclienti.views.VistaListaClienti import VistaListaClienti
 from listadipendenti.views.VistaListaDipendenti import VistaListaDipendenti
+from listatransazioni.views.VistaListaTransazioni import VistaListaTransazioni
 
 
 class VistaHome(QWidget):
@@ -41,6 +42,5 @@ class VistaHome(QWidget):
        self.vista_lista_dipendenti.show()
 
     def go_lista_transazioni(self):
-        pass
-       # self.vista_lista_transazioni = VistaListaTransazioni()
-       # self.vista_lista_transazioni.show()
+       self.vista_lista_transazioni = VistaListaTransazioni()
+       self.vista_lista_transazioni.show()

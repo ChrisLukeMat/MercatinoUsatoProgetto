@@ -14,11 +14,13 @@ class Transazione:
             Transazione.cnt += 1
         self.id_transazione = self.cod_transazione + 1
         self.id_transazione = str(self.id_transazione) + "t"
-        Transazione.cod_dipendente += 1
+        Transazione.cod_transazione += 1
 
     def aggiorna_saldo(self):
-        saldo_parziale = self.oggetto_venduto.get_prezzo() / 2
-        self.acquirente.set_saldo(self.acquirente.get_saldo() + saldo_parziale)
+        saldo_str = self.oggetto_venduto.prezzo
+        saldo_parziale = float(saldo_str) / 2
+        saldo_proprietario_str = self.oggetto_venduto.proprietario.get_saldo()
+        self.oggetto_venduto.proprietario.set_saldo(float(saldo_proprietario_str) + saldo_parziale)
 
     def get_oggetto_venduto(self):
         return self.oggetto_venduto

@@ -16,13 +16,15 @@ class VistaTransazione(QWidget):
         v_layout.addWidget(self.get_generic_label("Oggetto venduto: "))
         v_layout.addWidget(self.get_generic_label("Acquirente: "))
         v_layout.addWidget(self.get_generic_label("Data Vendita: "))
+        v_layout.addWidget(self.get_generic_label("Id Transazione: "))
 
         self.acquirente = self.controller.get_acquirente()
-        v_layout2.addWidget(self.get_generic_label(self.controller.get_oggetto_venduto().get_nome()))
+        v_layout2.addWidget(self.get_generic_label(self.controller.get_oggetto_venduto().nome))
         v_layout2.addWidget(self.get_generic_label(self.acquirente.get_nome() + " " +
                                                    self.acquirente.get_cognome() + " " +
                                                    self.acquirente.get_id_cliente()))
         v_layout2.addWidget(self.get_generic_label(self.controller.get_data_vendita()))
+        v_layout2.addWidget(self.get_generic_label(self.controller.get_id_transazione()))
 
         h_layout.addLayout(v_layout)
         h_layout.addLayout(v_layout2)
@@ -31,7 +33,7 @@ class VistaTransazione(QWidget):
 
         self.setLayout(h_layout)
         self.resize(500, 400)
-        self.setWindowTitle("Vendita oggetto: " + self.controller.get_oggetto_venduto().get_nome())
+        self.setWindowTitle("Vendita oggetto: " + self.controller.get_oggetto_venduto().nome)
 
     def get_generic_label(self, text):
         label = QLabel(str(text))
