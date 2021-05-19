@@ -24,7 +24,7 @@ class VistaDipendente(QWidget):
         v_layout2.addWidget(self.get_generic_label(self.controller.get_nome()))
         v_layout2.addWidget(self.get_generic_label(self.controller.get_cognome()))
         v_layout2.addWidget(self.get_generic_label(self.controller.get_cf()))
-        v_layout2.addWidget(self.get_generic_label(str(self.controller.get_data_nascita())))
+        v_layout2.addWidget(self.get_generic_label((self.controller.get_data_nascita()).strftime("%d-%m-%Y")))
         v_layout2.addWidget(self.get_generic_label(self.controller.get_luogo_nascita()))
         v_layout2.addWidget(self.get_generic_label(self.controller.get_indirizzo()))
         v_layout2.addWidget(self.get_generic_label(self.controller.get_telefono()))

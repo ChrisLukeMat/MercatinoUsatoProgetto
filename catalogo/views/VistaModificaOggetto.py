@@ -48,7 +48,7 @@ class VistaModificaOggetto(QWidget):
             v_layout.addWidget(QLabel("Proprietario"))
             v_layout.addWidget(self.combo_clienti)
 
-        v_layout.addWidget(QLabel("Descrizione"))
+        v_layout.addWidget(QLabel("Descrizione (facoltativo)"))
         self.text_descrizione = QTextEdit(self)
         self.text_descrizione.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
         self.text_descrizione.setAlignment(Qt.AlignTop)
@@ -107,7 +107,7 @@ class VistaModificaOggetto(QWidget):
         descrizione = self.text_descrizione.toPlainText()
         categoria = self.text_categoria.text()
 
-        if nome == "" or prezzo == "" or proprietario == "" or descrizione == "" or categoria == "" or giorno_esposizione == "" or mese_esposizione == "" or anno_esposizione == "":
+        if nome == "" or prezzo == "" or not proprietario or categoria == "" or giorno_esposizione == "" or mese_esposizione == "" or anno_esposizione == "":
             QMessageBox.critical(self, 'Errore', "Per favore, inserisci tutte le informazioni richieste",
                                  QMessageBox.Ok, QMessageBox.Ok)
         else:

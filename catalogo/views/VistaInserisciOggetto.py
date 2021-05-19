@@ -40,14 +40,11 @@ class VistaInserisciOggetto(QWidget):
                 item.setFont(font)
                 self.comboclienti_model.appendRow(item)
             self.combo_clienti.setModel(self.comboclienti_model)
-        else:
-            QMessageBox.critical(self, 'Errore', "E' necessario inserire almeno un cliente!",
-                                     QMessageBox.Ok, QMessageBox.Ok)
 
         v_layout.addWidget(QLabel("Proprietario"))
         v_layout.addWidget(self.combo_clienti)
 
-        v_layout.addWidget(QLabel("Descrizione"))
+        v_layout.addWidget(QLabel("Descrizione (facoltativo)"))
         self.text_descrizione = QTextEdit(self)
         self.text_descrizione.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.text_descrizione.setAlignment(Qt.AlignTop)
@@ -104,7 +101,7 @@ class VistaInserisciOggetto(QWidget):
         descrizione = self.text_descrizione.toPlainText()
         categoria = self.text_categoria.text()
 
-        if nome == "" or prezzo == "" or descrizione == "" or categoria == "" or giorno_esposizione == "" or mese_esposizione == "" or anno_esposizione == "":
+        if nome == "" or prezzo == "" or categoria == "" or giorno_esposizione == "" or mese_esposizione == "" or anno_esposizione == "":
             QMessageBox.critical(self, 'Errore', "Per favore, inserisci tutte le informazioni richieste", QMessageBox.Ok, QMessageBox.Ok)
         else:
             try:
@@ -118,5 +115,8 @@ class VistaInserisciOggetto(QWidget):
                 QMessageBox.critical(self, 'Errore', "Formato dei dati non corretto!",
                                      QMessageBox.Ok, QMessageBox.Ok)
             except IndexError:
+                QMessageBox.critical(self, 'Errore', "E' necessario inserire almeno un cliente!",
+                                     QMessageBox.Ok, QMessageBox.Ok)
+            except AttributeError:
                 QMessageBox.critical(self, 'Errore', "E' necessario inserire almeno un cliente!",
                                      QMessageBox.Ok, QMessageBox.Ok)
