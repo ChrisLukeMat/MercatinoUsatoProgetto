@@ -1,11 +1,10 @@
-import os
 import sys
 
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QApplication
 from PyQt5 import QtGui
 from home.views.VistaHome import VistaHome
-
+from home.views.VistaLogin import VistaLogin
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
@@ -16,6 +15,11 @@ if __name__ == '__main__':
 
     app.setWindowIcon(QtGui.QIcon("appStyle/IconaMarket.png"))
     app.setFont(QFont("Calibri", 12))
+
+    vista_login = VistaLogin()
+    vista_login.show()
+
     vista_home = VistaHome()
     vista_home.show()
+
     sys.exit(app.exec_())
