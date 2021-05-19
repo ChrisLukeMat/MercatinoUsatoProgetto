@@ -23,7 +23,7 @@ class VistaTransazione(QWidget):
 
         self.acquirente = self.controller.get_acquirente()
         v_layout2.addWidget(self.get_generic_label(self.controller.get_oggetto_venduto().nome))
-        v_layout2.addWidget(self.get_generic_label((self.controller.get_oggetto_venduto().prezzo + " €")))
+        v_layout2.addWidget(self.get_generic_label((str(self.controller.get_oggetto_venduto().prezzo) + " €")))
         v_layout2.addWidget(self.get_generic_label(self.controller.get_oggetto_venduto().proprietario.get_nome() + " " + self.controller.get_oggetto_venduto().proprietario.get_cognome() + " " + self.controller.get_oggetto_venduto().proprietario.get_id_cliente()))
         v_layout2.addWidget(self.get_generic_label(self.acquirente.get_nome() + " " +
                                                    self.acquirente.get_cognome() + " " +

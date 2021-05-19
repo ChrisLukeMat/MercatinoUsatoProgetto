@@ -51,7 +51,7 @@ class VistaInserisciTransazione(QWidget):
         self.controller_catalogo = ControllerCatalogo()
         for oggetto in self.controller_catalogo.get_catalogo():
             item = QStandardItem()
-            item.setText(oggetto.nome + " " + oggetto.prezzo + " €  id:" + oggetto.id)
+            item.setText(oggetto.nome + " " + str(oggetto.prezzo) + " €  id:" + oggetto.id)
             item.setEditable(False)
             font = item.font()
             font.setPointSize(18)
@@ -130,8 +130,6 @@ class VistaInserisciTransazione(QWidget):
 
                 self.controller_lista_clienti.save_data()
 
-                #transazione.aggiorna_saldo(), bisogna aggiornare il saldo del proprietario
-                #ELIMINAZIONE OGGETTO
                 for oggetto in self.controller_catalogo.get_catalogo():
                     if oggetto_venduto.nome == oggetto.nome and oggetto_venduto.prezzo == oggetto.prezzo and oggetto_venduto.id == oggetto.id:
                         self.controller_catalogo.rimuovi_oggetto_by_id(oggetto.id)

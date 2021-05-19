@@ -120,5 +120,3 @@ class VistaInserisciOggetto(QWidget):
             except IndexError:
                 QMessageBox.critical(self, 'Errore', "E' necessario inserire almeno un cliente!",
                                      QMessageBox.Ok, QMessageBox.Ok)
-
-
