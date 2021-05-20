@@ -7,9 +7,10 @@ from home.views.VistaHome import VistaHome
 
 
 class VistaLogin(QWidget):
-    def __init__(self):
+    def __init__(self, vista_home):
         super(VistaLogin, self).__init__()
 
+        self.vista_home = vista_home
         self.trovato = False
         v_layout = QVBoxLayout()
 
@@ -37,6 +38,8 @@ class VistaLogin(QWidget):
                 for credenziali in lista_credenziali:
                     if credenziali["username"] == self.text_username.text() and credenziali["password"] == self.text_password.text():
                         self.trovato = True
+                        self.close()
+                        self.vista_home.show()
                 if not self.trovato:
                     QMessageBox.critical(self, 'Errore', "Credenziali errate", QMessageBox.Ok, QMessageBox.Ok)
         else:

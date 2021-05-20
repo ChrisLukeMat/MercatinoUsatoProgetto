@@ -16,10 +16,8 @@ if __name__ == '__main__':
     app.setWindowIcon(QtGui.QIcon("appStyle/IconaMarket.png"))
     app.setFont(QFont("Calibri", 12))
 
-    vista_login = VistaLogin()
+    vista_home = VistaHome()
+    vista_login = VistaLogin(vista_home)
     vista_login.show()
-
-    #vista_home = VistaHome()
-    #vista_home.show()
 
     sys.exit(app.exec_())

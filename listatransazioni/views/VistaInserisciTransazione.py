@@ -143,9 +143,11 @@ class VistaInserisciTransazione(QWidget):
             except ValueError:
                 QMessageBox.critical(self, 'Errore', "Data non corretta",
                                     QMessageBox.Ok, QMessageBox.Ok)
-            except IndexError:
+            except IndexError or AttributeError:
                 QMessageBox.critical(self, 'Errore', "E' necessario inserire almeno un cliente e un oggetto!",
                                      QMessageBox.Ok, QMessageBox.Ok)
+            '''
             except AttributeError:
                 QMessageBox.critical(self, 'Errore', "E' necessario inserire almeno un cliente e un oggetto!",
                                      QMessageBox.Ok, QMessageBox.Ok)
+            '''
