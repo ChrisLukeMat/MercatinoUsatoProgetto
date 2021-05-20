@@ -11,7 +11,6 @@ class VistaLogin(QWidget):
         super(VistaLogin, self).__init__()
 
         self.trovato = False
-
         v_layout = QVBoxLayout()
 
         v_layout.addWidget(QLabel("Username"))
@@ -38,7 +37,6 @@ class VistaLogin(QWidget):
                 for credenziali in lista_credenziali:
                     if credenziali["username"] == self.text_username.text() and credenziali["password"] == self.text_password.text():
                         self.trovato = True
-                        self.close()
                 if not self.trovato:
                     QMessageBox.critical(self, 'Errore', "Credenziali errate", QMessageBox.Ok, QMessageBox.Ok)
         else:
