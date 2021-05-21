@@ -16,9 +16,10 @@ class VistaHome(QWidget):
         v_layout.addWidget(self.get_generic_button("Lista Dipendenti", self.go_lista_dipendenti))
         v_layout.addWidget(self.get_generic_button("Lista Transazioni", self.go_lista_transazioni))
 
-
         self.setLayout(v_layout)
-        self.resize(300,250)
+        self.setFixedWidth(375)
+        self.setFixedHeight(300)
+        #self.resize(300,250)
         self.setWindowTitle("Mercatino")
 
 

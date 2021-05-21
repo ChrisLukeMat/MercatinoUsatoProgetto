@@ -1,7 +1,7 @@
 import json
 import os
 
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QSizePolicy
 
 from home.views.VistaHome import VistaHome
 
@@ -16,18 +16,23 @@ class VistaLogin(QWidget):
 
         v_layout.addWidget(QLabel("Username"))
         self.text_username = QLineEdit(self)
+        self.text_username.setFixedWidth(350)
         v_layout.addWidget(self.text_username)
 
         v_layout.addWidget(QLabel("Password"))
         self.text_password = QLineEdit(self)
+        self.text_password.setFixedWidth(350)
         v_layout.addWidget(self.text_password)
 
         button_login = QPushButton("Login")
+        button_login.setFixedWidth(350)
         button_login.clicked.connect(self.controlla_credenziali)
         v_layout.addWidget(button_login)
 
         self.setLayout(v_layout)
-        self.resize(250, 300)
+        self.setFixedWidth(375)
+        self.setFixedHeight(300)
+        #self.resize(300, 350)
         self.setWindowTitle('Login')
 
 
