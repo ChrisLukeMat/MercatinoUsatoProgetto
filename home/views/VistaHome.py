@@ -1,3 +1,4 @@
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QSizePolicy
 
 from catalogo.views.VistaCatalogo import VistaCatalogo
@@ -16,16 +17,19 @@ class VistaHome(QWidget):
         v_layout.addWidget(self.get_generic_button("Lista Dipendenti", self.go_lista_dipendenti))
         v_layout.addWidget(self.get_generic_button("Lista Transazioni", self.go_lista_transazioni))
 
+        v_layout.setAlignment(Qt.AlignCenter)
         self.setLayout(v_layout)
-        self.setFixedWidth(375)
-        self.setFixedHeight(300)
-        #self.resize(300,250)
+        #self.setFixedWidth(375)
+        #self.setFixedHeight(300)
+        self.resize(375,300)
         self.setWindowTitle("Mercatino")
 
 
     def get_generic_button(self,titolo, on_click):
         button = QPushButton(titolo)
-        button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        #button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        button.setFixedWidth(350)
+        button.setFixedHeight(150)
         button.clicked.connect(on_click)
         return button
 
