@@ -1,5 +1,8 @@
+from PyQt5 import QtGui
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QSizePolicy
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QSizePolicy, QLabel, QGridLayout
+import tkinter as tk
 
 from catalogo.views.VistaCatalogo import VistaCatalogo
 from listaclienti.views.VistaListaClienti import VistaListaClienti
@@ -19,6 +22,16 @@ class VistaHome(QWidget):
 
         v_layout.setAlignment(Qt.AlignCenter)
         self.setLayout(v_layout)
+
+        '''
+        self.img = QPixmap("appStyle/IconaMarket.png")
+        self.label = QLabel()
+        self.label.setPixmap(self.img)
+        self.grid = QGridLayout()
+        self.grid.addWidget(self.label, 1, 1)
+        self.setLayout(self.grid)
+        '''
+
         #self.setFixedWidth(375)
         #self.setFixedHeight(300)
         self.resize(375,300)
@@ -27,9 +40,10 @@ class VistaHome(QWidget):
 
     def get_generic_button(self,titolo, on_click):
         button = QPushButton(titolo)
-        #button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         button.setFixedWidth(350)
         button.setFixedHeight(150)
+        button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        button.setMaximumWidth(500)
         button.clicked.connect(on_click)
         return button
 
