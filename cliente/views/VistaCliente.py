@@ -1,5 +1,5 @@
 from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy
+from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy, QMessageBox
 
 from cliente.controller.ControllerCliente import ControllerCliente
 
@@ -8,6 +8,7 @@ class VistaCliente(QWidget):
         super(VistaCliente, self).__init__()
         self.controller = ControllerCliente(cliente)
 
+        v_layout_tot = QVBoxLayout()
         h_layout = QHBoxLayout()
         v_layout = QVBoxLayout()
         v_layout2 = QVBoxLayout()
@@ -37,7 +38,13 @@ class VistaCliente(QWidget):
         h_layout.setContentsMargins(15, 0, 125, 0)
         h_layout.addStretch()
 
-        self.setLayout(h_layout)
+        button_layout = QVBoxLayout()
+        button_layout.addWidget(self.get_generic_button("Riscuoti saldo", self.vista_riscuoti))
+
+        v_layout_tot.addLayout(h_layout)
+        v_layout_tot.addLayout(button_layout)
+
+        self.setLayout(v_layout_tot)
         self.resize(500,400)
         self.setWindowTitle("{} {}".format(cliente.get_nome(), cliente.get_cognome()))
 
@@ -55,3 +62,14 @@ class VistaCliente(QWidget):
         button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         button.clicked.connect(on_click)
         return button
+
+    def vista_riscuoti(self):
+        view = QMessageBox()
+        if self.controller.get_saldo() != 0.0:
+            view.setText("Riscossione andata a buon fine!")
+            self.controller.set_saldo(0.0)
+        else:
+            view.setIcon(QMessageBox.Critical)
+            view.setText("Saldo nullo!")
+        view.setWindowTitle("Riscossione saldo {} {}".format(self.controller.get_nome(), self.controller.get_cognome()))
+        view.exec()
