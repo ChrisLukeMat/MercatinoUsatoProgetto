@@ -1,3 +1,4 @@
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy, QMessageBox
 
@@ -35,14 +36,16 @@ class VistaCliente(QWidget):
 
         h_layout.addLayout(v_layout)
         h_layout.addLayout(v_layout2)
-        h_layout.setContentsMargins(15, 0, 125, 0)
-        h_layout.addStretch()
+        #h_layout.setContentsMargins(15, 0, 125, 0)
+        #h_layout.addStretch()
 
         button_layout = QVBoxLayout()
         button_layout.addWidget(self.get_generic_button("Riscuoti saldo", self.vista_riscuoti))
 
         v_layout_tot.addLayout(h_layout)
         v_layout_tot.addLayout(button_layout)
+        v_layout_tot.setAlignment(Qt.AlignCenter)
+        v_layout_tot.addStretch()
 
         self.setLayout(v_layout_tot)
         self.resize(500,400)
@@ -50,17 +53,14 @@ class VistaCliente(QWidget):
 
     def get_generic_label(self, text):
         label = QLabel(str(text))
-        label.setFont(QFont('Arial', 10))
-        #font = label.font()
-        #font.setStyle(QFont())
-        #font.setPointSize(15)
-        #label.setFont(font)
         return label
 
     def get_generic_button(self, titolo, on_click):
         button = QPushButton(titolo)
         button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         button.clicked.connect(on_click)
+        button.setFixedWidth(150)
+        button.setFixedHeight(50)
         return button
 
     def vista_riscuoti(self):

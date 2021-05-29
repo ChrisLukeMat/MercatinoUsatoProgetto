@@ -1,6 +1,6 @@
 from PyQt5 import QtGui
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtCore import Qt, QSize
+from PyQt5.QtGui import QPixmap, QImage, QPalette, QBrush
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QSizePolicy, QLabel, QGridLayout
 import tkinter as tk
 
@@ -23,17 +23,12 @@ class VistaHome(QWidget):
         v_layout.setAlignment(Qt.AlignCenter)
         self.setLayout(v_layout)
 
-        '''
-        self.img = QPixmap("appStyle/IconaMarket.png")
-        self.label = QLabel()
-        self.label.setPixmap(self.img)
-        self.grid = QGridLayout()
-        self.grid.addWidget(self.label, 1, 1)
-        self.setLayout(self.grid)
-        '''
+        oImage = QImage("appStyle/IconaMarket.png")
+        sImage = oImage.scaled(QSize(375, 300))  # resize Image to widgets size
+        palette = QPalette()
+        palette.setBrush(QPalette.Window, QBrush(sImage))
+        self.setPalette(palette)
 
-        #self.setFixedWidth(375)
-        #self.setFixedHeight(300)
         self.resize(375,300)
         self.setWindowTitle("Mercatino")
 

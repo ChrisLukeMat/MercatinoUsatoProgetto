@@ -57,13 +57,10 @@ class VistaOggetto(QWidget):
         self.setLayout(v_layout_finale)
         self.resize(700, 300)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.setWindowTitle("{}".format(oggetto.nome))#provare senza format
+        self.setWindowTitle("{}".format(oggetto.nome))
 
     def get_generic_label(self, text):
         label = QLabel(str(text))
-        font = label.font()
-        font.setPointSize(20)
-        label.setFont(font)
         return label
 
     def get_generic_button(self, titolo, on_click):

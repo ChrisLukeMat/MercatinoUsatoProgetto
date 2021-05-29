@@ -9,7 +9,7 @@ from home.views.VistaLogin import VistaLogin
 if __name__ == '__main__':
     app = QApplication(sys.argv)
 
-    qss = "appStyle/Combinear.qss"
+    qss = "appStyle/Darkeum.qss"
     with open(qss, "r") as fh:
         app.setStyleSheet(fh.read())
 

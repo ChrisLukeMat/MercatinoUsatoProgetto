@@ -14,32 +14,26 @@ class VistaInserisciDipendente(QWidget):
         v_layout = QVBoxLayout()
         v_layout.addWidget(QLabel("Nome"))
         self.text_nome = QLineEdit(self)
-        self.text_nome.setText("CICCIO")
         v_layout.addWidget(self.text_nome)
 
         v_layout.addWidget(QLabel("Cognome"))
         self.text_cognome = QLineEdit(self)
-        self.text_cognome.setText("Pasticcio")
         v_layout.addWidget(self.text_cognome)
 
         v_layout.addWidget(QLabel("Codice fiscale"))
         self.text_cf = QLineEdit(self)
-        self.text_cf.setText("abcdefg12356789")
         v_layout.addWidget(self.text_cf)
 
         v_layout.addWidget(QLabel("Indirizzo"))
         self.text_indirizzo = QLineEdit(self)
-        self.text_indirizzo.setText("Via Vittoria 999")
         v_layout.addWidget(self.text_indirizzo)
 
         v_layout.addWidget(QLabel("Telefono"))
         self.text_telefono = QLineEdit(self)
-        self.text_telefono.setText("3398743389")
         v_layout.addWidget(self.text_telefono)
 
         v_layout.addWidget(QLabel("Luogo nascita"))
         self.text_luogo_nascita = QLineEdit(self)
-        self.text_luogo_nascita.setText("Monte Flex")
         v_layout.addWidget(self.text_luogo_nascita)
 
         v_layout.addWidget(QLabel("Data nascita"))
@@ -47,19 +41,16 @@ class VistaInserisciDipendente(QWidget):
         v_layout_giorno = QVBoxLayout()
         v_layout_giorno.addWidget(QLabel("Giorno"))
         self.text_giorno_nascita = QLineEdit(self)
-        self.text_giorno_nascita.setText("10")
         v_layout_giorno.addWidget(self.text_giorno_nascita)
 
         v_layout_mese = QVBoxLayout()
         v_layout_mese.addWidget(QLabel("Mese"))
         self.text_mese_nascita = QLineEdit(self)
-        self.text_mese_nascita.setText("10")
         v_layout_mese.addWidget(self.text_mese_nascita)
 
         v_layout_anno = QVBoxLayout()
         v_layout_anno.addWidget(QLabel("Anno"))
         self.text_anno_nascita = QLineEdit(self)
-        self.text_anno_nascita.setText("2010")
         v_layout_anno.addWidget(self.text_anno_nascita)
 
         h_layout = QHBoxLayout()
