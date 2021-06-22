@@ -46,3 +46,6 @@ class ControllerDipendente:
 
     def get_id_dipendente(self):
         return self.model.get_id_dipendente()
+
+    def aggiorna_codice(self):
+        return self.model.aggiorna_codice()
