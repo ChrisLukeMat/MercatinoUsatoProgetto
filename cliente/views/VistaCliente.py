@@ -39,20 +39,22 @@ class VistaCliente(QWidget):
         #h_layout.setContentsMargins(15, 0, 125, 0)
         #h_layout.addStretch()
 
-        button_layout = QVBoxLayout()
-        button_layout.addWidget(self.get_generic_button("Riscuoti saldo", self.vista_riscuoti))
-
+        #button_layout = QVBoxLayout()
+        #button_layout.addWidget(self.get_generic_button("Riscuoti saldo", self.vista_riscuoti))
+       # button_layout.setAlignment(Qt.AlignCenter)
         v_layout_tot.addLayout(h_layout)
-        v_layout_tot.addLayout(button_layout)
-        v_layout_tot.setAlignment(Qt.AlignCenter)
-        v_layout_tot.addStretch()
+        v_layout_tot.addWidget(self.get_generic_button("Riscuoti saldo", self.vista_riscuoti))
+        #v_layout_tot.addLayout(button_layout)
+        #v_layout_tot.setAlignment(Qt.AlignJustify)
+        #v_layout_tot.addStretch()
 
         self.setLayout(v_layout_tot)
-        self.resize(500,400)
+        self.resize(500, 400)
         self.setWindowTitle("{} {}".format(cliente.get_nome(), cliente.get_cognome()))
 
     def get_generic_label(self, text):
         label = QLabel(str(text))
+        label.setStyleSheet("background-color: rgba(52,52,52,50%); border-radius: 7px; border: 1px solid black;")
         return label
 
     def get_generic_button(self, titolo, on_click):

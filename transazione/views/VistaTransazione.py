@@ -19,7 +19,7 @@ class VistaTransazione(QWidget):
         v_layout.addWidget(self.get_generic_label("Acquirente: "))
         v_layout.addWidget(self.get_generic_label("Data Vendita: "))
         v_layout.addWidget(self.get_generic_label("Id Transazione: "))
-        v_layout.addStretch()
+       # v_layout.addStretch()
 
         self.acquirente = self.controller.get_acquirente()
         v_layout2.addWidget(self.get_generic_label(self.controller.get_oggetto_venduto().nome))
@@ -30,12 +30,12 @@ class VistaTransazione(QWidget):
                                                    self.acquirente.get_id_cliente()))
         v_layout2.addWidget(self.get_generic_label(self.controller.get_data_vendita().strftime("%d-%m-%Y")))
         v_layout2.addWidget(self.get_generic_label(self.controller.get_id_transazione()))
-        v_layout2.addStretch()
+       # v_layout2.addStretch()
 
         h_layout.addLayout(v_layout)
         h_layout.addLayout(v_layout2)
-        h_layout.setContentsMargins(15, 0, 125, 0)
-        h_layout.addStretch()
+        #h_layout.setContentsMargins(15, 0, 125, 0)
+        #h_layout.addStretch()
 
         self.setLayout(h_layout)
         self.resize(500, 400)
@@ -43,5 +43,5 @@ class VistaTransazione(QWidget):
 
     def get_generic_label(self, text):
         label = QLabel(str(text))
-        label.setFont(QFont('Arial', 10))
+        label.setStyleSheet("background-color: rgba(52,52,52,50%); border-radius: 7px; border: 1px solid black;")
         return label

@@ -1,7 +1,7 @@
-from PyQt5.QtGui import QTextFormat
+from PyQt5.QtGui import QTextFormat, QPalette
 from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy
 from PyQt5.QtCore import Qt
-
+from PyQt5 import QtGui
 from oggetto.controller.ControllerOggetto import ControllerOggetto
 
 
@@ -30,37 +30,37 @@ class VistaOggetto(QWidget):
 
         nome_proprietario = self.controller.get_proprietario_oggetto().nome
         cognome_proprietario = self.controller.get_proprietario_oggetto().cognome
-        v_layout2.addWidget(self.get_generic_label(nome_proprietario + " " + cognome_proprietario))
+        id_proprietario = self.controller.get_proprietario_oggetto().get_id_cliente()
+        v_layout2.addWidget(self.get_generic_label(nome_proprietario + " " + cognome_proprietario + " " + id_proprietario))
 
         v_layout2.addWidget(self.get_generic_label(self.controller.get_data_esposizione_oggetto().strftime("%d-%m-%Y")))
 
         h_layout.addLayout(v_layout2)
 
         label_nome_descrizione = self.get_generic_label("Descrizione: ")
-        label_nome_descrizione.setAlignment(Qt.AlignJustify)
+        label_nome_descrizione.setAlignment(Qt.AlignTop)
         h_layout_desc.addWidget(label_nome_descrizione)
 
         descrizione_ogg = self.controller.get_descrizione_oggetto()
 
-        for i in range(0, len(descrizione_ogg)):
-            if i % 25 == 0:
+        for i in range(1, len(descrizione_ogg)):
+            if i % 30 == 0:
                 descrizione_ogg = descrizione_ogg[:i] + "\n" + descrizione_ogg[i:]
 
         label_descrizione = self.get_generic_label(descrizione_ogg)
-        label_descrizione.setAlignment(Qt.AlignJustify)
+        label_descrizione.setAlignment(Qt.AlignTop)
         h_layout_desc.addWidget(label_descrizione)
 
         v_layout_finale.addLayout(h_layout)
         v_layout_finale.addLayout(h_layout_desc)
-        v_layout_finale.addStretch()
-
         self.setLayout(v_layout_finale)
-        self.resize(700, 300)
+        self.resize(600, 300)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.setWindowTitle("{}".format(oggetto.nome))
 
     def get_generic_label(self, text):
         label = QLabel(str(text))
+        label.setStyleSheet("background-color: rgba(52,52,52,50%); border-radius: 7px; border: 1px solid black;")
         return label
 
     def get_generic_button(self, titolo, on_click):

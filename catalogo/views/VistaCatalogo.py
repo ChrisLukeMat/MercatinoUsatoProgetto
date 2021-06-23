@@ -35,7 +35,7 @@ class VistaCatalogo(QWidget):
         h_layout.addLayout(buttons_layout)
 
         self.setLayout(h_layout)
-        self.resize(600, 300)
+        self.resize(720, 400)
         self.setWindowTitle("Catalogo")
 
     def get_generic_button(self, titolo, on_click):
@@ -56,14 +56,14 @@ class VistaCatalogo(QWidget):
         self.vista_inserisci_oggetto.show()
 
     def show_modifica_oggetto(self):
-        if len(self.controller.get_catalogo()) != 0:
+        if len(self.list_view.selectedIndexes()) > 0:
             selected = self.list_view.selectedIndexes()[0].row()
             oggetto_selezionato = self.controller.get_oggetto_by_index(selected)
             self.vista_modifica_oggetto = VistaModificaOggetto(oggetto_selezionato, self.update_ui)
             self.vista_modifica_oggetto.show()
 
     def show_elimina_oggetto(self):
-        if len(self.controller.get_catalogo()) != 0:
+        if len(self.list_view.selectedIndexes()) > 0:
             selected = self.list_view.selectedIndexes()[0].row()
             oggetto_selezionato = self.controller.get_oggetto_by_index(selected)
             self.controller.rimuovi_oggetto_by_id(oggetto_selezionato.id)
@@ -79,7 +79,7 @@ class VistaCatalogo(QWidget):
             item.setText(oggetto.nome + " " + str(oggetto.prezzo) + " €")
             item.setEditable(False)
             font = item.font()
-            font.setPointSize(18)
+            font.setPointSize(12)
             item.setFont(font)
             i = int(i) + 1
             self.listview_model.appendRow(item)

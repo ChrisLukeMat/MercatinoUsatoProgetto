@@ -1,6 +1,6 @@
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy
-
+from PyQt5.QtCore import Qt
 from dipendente.controller.ControllerDipendente import ControllerDipendente
 
 class VistaDipendente(QWidget):
@@ -32,8 +32,9 @@ class VistaDipendente(QWidget):
 
         h_layout.addLayout(v_layout)
         h_layout.addLayout(v_layout2)
-        h_layout.setContentsMargins(15, 0, 125, 0)
-        h_layout.addStretch()
+        #h_layout.setContentsMargins(15, 0, 125, 0)
+        #h_layout.setAlignment(Qt.AlignHCenter)
+        #h_layout.addStretch()
 
         #buttons_layout = QVBoxLayout()
         #buttons_layout.addWidget(self.get_generic_button("Elimina", self.show_elimina_dipendente))
@@ -45,11 +46,7 @@ class VistaDipendente(QWidget):
 
     def get_generic_label(self, text):
         label = QLabel(str(text))
-        label.setFont(QFont('Arial', 10))
-        #font = label.font()
-        #font.setStyle(QFont())
-        #font.setPointSize(15)
-        #label.setFont(font)
+        label.setStyleSheet("background-color: rgba(52,52,52,50%); border-radius: 7px; border: 1px solid black;")
         return label
 
     def get_generic_button(self, titolo, on_click):

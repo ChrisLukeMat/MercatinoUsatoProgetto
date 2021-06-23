@@ -27,7 +27,7 @@ class VistaListaClienti(QWidget):
         h_layout.addLayout(buttons_layout)
 
         self.setLayout(h_layout)
-        self.resize(600, 300)
+        self.resize(720, 400)
         self.setWindowTitle("Lista clienti")
 
     def get_generic_button(self, titolo, on_click):
@@ -72,7 +72,7 @@ class VistaListaClienti(QWidget):
             item.setText(cliente.nome + " " + cliente.cognome)
             item.setEditable(False)
             font = item.font()
-            font.setPointSize(10)
+            font.setPointSize(12)
             item.setFont(font)
             self.listview_model.appendRow(item)
         self.list_view.setModel(self.listview_model)

@@ -23,13 +23,14 @@ class VistaHome(QWidget):
         v_layout.setAlignment(Qt.AlignCenter)
         self.setLayout(v_layout)
 
+        '''
         oImage = QImage("appStyle/IconaMarket.png")
         sImage = oImage.scaled(QSize(375, 300))  # resize Image to widgets size
         palette = QPalette()
         palette.setBrush(QPalette.Window, QBrush(sImage))
         self.setPalette(palette)
-
-        self.resize(375,300)
+        '''
+        self.resize(375, 300)
         self.setWindowTitle("Mercatino")
 
 

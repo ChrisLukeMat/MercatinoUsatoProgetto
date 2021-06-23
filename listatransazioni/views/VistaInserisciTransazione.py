@@ -46,7 +46,7 @@ class VistaInserisciTransazione(QWidget):
                 self.catalogo_salvato = pickle.load(f)
             for oggetto in self.catalogo_salvato:
                 item = QStandardItem()
-                item.setText(oggetto.nome + " " + str(oggetto.prezzo) + " €  id:" + oggetto.id)
+                item.setText(oggetto.nome + " " + str(oggetto.prezzo) + " €  " + oggetto.id)
                 item.setEditable(False)
                 font = item.font()
                 font.setPointSize(18)
