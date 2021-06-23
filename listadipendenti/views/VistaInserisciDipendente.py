@@ -1,4 +1,7 @@
 import datetime as dt
+import json
+import os
+
 from PyQt5.QtWidgets import QWidget, QMessageBox, QLabel, QVBoxLayout, QLineEdit, QSpacerItem, QSizePolicy, QPushButton, \
     QHBoxLayout
 from PyQt5.QtCore import Qt
@@ -60,6 +63,14 @@ class VistaInserisciDipendente(QWidget):
 
         v_layout.addLayout(h_layout)
 
+        v_layout.addWidget(QLabel("Username"))
+        self.text_username = QLineEdit(self)
+        v_layout.addWidget(self.text_username)
+
+        v_layout.addWidget(QLabel("Password"))
+        self.text_password = QLineEdit(self)
+        v_layout.addWidget(self.text_password)
+
         v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         btn_ok = QPushButton("OK")
@@ -80,14 +91,25 @@ class VistaInserisciDipendente(QWidget):
         luogo_nascita = self.text_luogo_nascita.text()
         telefono = self.text_telefono.text()
         indirizzo = self.text_indirizzo.text()
+        username = self.text_username.text()
+        password = self.text_password.text()
 
         if nome == "" or cognome == "" or cf == "" or giorno_nascita == "" or luogo_nascita == "" or telefono == "" \
-                or indirizzo == "" or mese_nascita == "" or anno_nascita == "":
+                or indirizzo == "" or mese_nascita == "" or anno_nascita == "" or username == "" or password == "":
             QMessageBox.critical(self, 'Errore', "Per favore, inserisci tutte le informazioni richieste", QMessageBox.Ok, QMessageBox.Ok)
         elif self.controlla_data(anno_nascita, mese_nascita, giorno_nascita):
             data_nascita = dt.date(int(anno_nascita), int(mese_nascita), int(giorno_nascita))
             self.controller.aggiungi_dipendente(
-                Dipendente(nome, cognome, cf, data_nascita, luogo_nascita, telefono, indirizzo))
+                Dipendente(nome, cognome, cf, data_nascita, luogo_nascita, telefono, indirizzo, username, password))
+            credenziali = {"username": username, "password": password}
+            lista_credenziali = []
+            if os.path.isfile('accessocredenziali/credenziali.json'):
+                with open('accessocredenziali/credenziali.json') as f:
+                    lista_credenziali = json.load(f)
+                    f.close()
+            with open('accessocredenziali/credenziali.json', 'w') as f:
+                lista_credenziali.append(credenziali)
+                json.dump(lista_credenziali, f)
             self.callback()
             self.close()
         else:

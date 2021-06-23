@@ -1,8 +1,5 @@
-from PyQt5 import QtGui
-from PyQt5.QtCore import Qt, QSize
-from PyQt5.QtGui import QPixmap, QImage, QPalette, QBrush
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QSizePolicy, QLabel, QGridLayout
-import tkinter as tk
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QSizePolicy
 
 from catalogo.views.VistaCatalogo import VistaCatalogo
 from listaclienti.views.VistaListaClienti import VistaListaClienti
@@ -31,7 +28,7 @@ class VistaHome(QWidget):
         self.setPalette(palette)
         '''
         self.resize(375, 300)
-        self.setWindowTitle("Mercatino")
+        self.setWindowTitle("Mercatino Usato")
 
 
     def get_generic_button(self,titolo, on_click):

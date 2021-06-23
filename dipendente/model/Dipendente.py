@@ -5,7 +5,7 @@ import pickle
 class Dipendente:
     cnt = 0
     cod_dipendente = 0
-    def __init__(self, nome, cognome, cf, data_nascita, luogo_nascita, telefono, indirizzo):
+    def __init__(self, nome, cognome, cf, data_nascita, luogo_nascita, telefono, indirizzo, username, password):
         self.nome = nome
         self.cognome = cognome
         self.cf = cf
@@ -13,6 +13,8 @@ class Dipendente:
         self.luogo_nascita = luogo_nascita
         self.telefono = telefono
         self.indirizzo = indirizzo
+        self.username = username
+        self.password = password
         if Dipendente.cnt == 0:
             self.aggiorna_codice()
             Dipendente.cnt += 1
@@ -61,6 +63,18 @@ class Dipendente:
 
     def get_indirizzo(self):
         return self.indirizzo
+
+    def set_username(self, username):
+        self.username = username
+
+    def get_username(self):
+        return self.username
+
+    def set_password(self, password):
+        self.password = password
+
+    def get_password(self):
+        return self.password
 
     def get_id_dipendente(self):
         return self.id_dipendente

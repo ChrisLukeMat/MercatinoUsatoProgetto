@@ -20,6 +20,8 @@ class VistaDipendente(QWidget):
         v_layout.addWidget(self.get_generic_label("Indirizzo: "))
         v_layout.addWidget(self.get_generic_label("Telefono: "))
         v_layout.addWidget(self.get_generic_label("Id: "))
+        v_layout.addWidget(self.get_generic_label("Username: "))
+        v_layout.addWidget(self.get_generic_label("Password: "))
 
         v_layout2.addWidget(self.get_generic_label(self.controller.get_nome()))
         v_layout2.addWidget(self.get_generic_label(self.controller.get_cognome()))
@@ -29,6 +31,8 @@ class VistaDipendente(QWidget):
         v_layout2.addWidget(self.get_generic_label(self.controller.get_indirizzo()))
         v_layout2.addWidget(self.get_generic_label(self.controller.get_telefono()))
         v_layout2.addWidget(self.get_generic_label(self.controller.get_id_dipendente()))
+        v_layout2.addWidget(self.get_generic_label(self.controller.get_username()))
+        v_layout2.addWidget(self.get_generic_label(self.controller.get_password()))
 
         h_layout.addLayout(v_layout)
         h_layout.addLayout(v_layout2)

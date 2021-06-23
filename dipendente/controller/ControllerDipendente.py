@@ -44,6 +44,18 @@ class ControllerDipendente:
     def get_telefono(self):
         return self.model.get_telefono()
 
+    def set_username(self, username):
+        self.model.set_username(username)
+
+    def get_username(self):
+        return self.model.get_username()
+
+    def set_password(self, password):
+        self.model.set_password(password)
+
+    def get_password(self):
+        return self.model.get_password()
+
     def get_id_dipendente(self):
         return self.model.get_id_dipendente()
 

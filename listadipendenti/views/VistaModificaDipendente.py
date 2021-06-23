@@ -1,3 +1,6 @@
+import json
+import os
+
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QHBoxLayout, QSpacerItem, QPushButton, QSizePolicy, \
     QMessageBox
 import datetime as dt
@@ -67,6 +70,16 @@ class VistaModificaDipendente(QWidget):
 
         v_layout.addLayout(h_layout)
 
+        v_layout.addWidget(QLabel("Username"))
+        self.text_username = QLineEdit(self)
+        self.text_username.setText(dipendente.get_username())
+        v_layout.addWidget(self.text_username)
+
+        v_layout.addWidget(QLabel("Password"))
+        self.text_password = QLineEdit(self)
+        self.text_password.setText(dipendente.get_password())
+        v_layout.addWidget(self.text_password)
+
         v_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         btn_ok = QPushButton("OK")
@@ -87,9 +100,11 @@ class VistaModificaDipendente(QWidget):
         luogo_nascita = self.text_luogo_nascita.text()
         telefono = self.text_telefono.text()
         indirizzo = self.text_indirizzo.text()
+        username = self.text_username.text()
+        password = self.text_password.text()
 
         if nome == "" or cognome == "" or cf == "" or giorno_nascita == "" or luogo_nascita == "" or telefono == "" \
-                or indirizzo == "" or mese_nascita == "" or anno_nascita == "":
+                or indirizzo == "" or mese_nascita == "" or anno_nascita == "" or username == "" or password == "":
             QMessageBox.critical(self, 'Errore', "Per favore, inserisci tutte le informazioni richieste",
                                  QMessageBox.Ok, QMessageBox.Ok)
         elif self.controlla_data(anno_nascita, mese_nascita, giorno_nascita):
@@ -101,6 +116,23 @@ class VistaModificaDipendente(QWidget):
             self.dipendente.set_indirizzo(indirizzo)
             self.dipendente.set_data_nascita(data_nascita)
             self.dipendente.set_luogo_nascita(luogo_nascita)
+            deprecated_username = self.dipendente.get_username()
+            deprecated_password = self.dipendente.get_password()
+            self.dipendente.set_username(username)
+            self.dipendente.set_password(password)
+            credenziali = {"username": username, "password": password}
+            lista_credenziali = []
+            if os.path.isfile('accessocredenziali/credenziali.json'):
+                with open('accessocredenziali/credenziali.json') as f:
+                    lista_credenziali = json.load(f)
+                    f.close()
+
+                    for cred in lista_credenziali:
+                        if cred.get("username") == deprecated_username and cred.get("password") == deprecated_password:
+                            lista_credenziali.remove(cred)
+            with open('accessocredenziali/credenziali.json', 'w') as f:
+                lista_credenziali.append(credenziali)
+                json.dump(lista_credenziali, f)
             self.callback()
             self.close()
         else:

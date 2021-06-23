@@ -1,9 +1,7 @@
 import json
 import os
 
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QSizePolicy, QSpacerItem
-
-from home.views.VistaHome import VistaHome
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox
 
 
 class VistaLogin(QWidget):
