@@ -2,6 +2,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QSizePolicy
 
 from catalogo.views.VistaCatalogo import VistaCatalogo
+from incassi.VistaIncassi import VistaIncassi
 from listaclienti.views.VistaListaClienti import VistaListaClienti
 from listadipendenti.views.VistaListaDipendenti import VistaListaDipendenti
 from listatransazioni.views.VistaListaTransazioni import VistaListaTransazioni
@@ -16,6 +17,7 @@ class VistaHome(QWidget):
         v_layout.addWidget(self.get_generic_button("Lista Clienti", self.go_lista_clienti))
         v_layout.addWidget(self.get_generic_button("Lista Dipendenti", self.go_lista_dipendenti))
         v_layout.addWidget(self.get_generic_button("Lista Transazioni", self.go_lista_transazioni))
+        v_layout.addWidget(self.get_generic_button("Incassi", self.go_incassi))
 
         v_layout.setAlignment(Qt.AlignCenter)
         self.setLayout(v_layout)
@@ -56,3 +58,7 @@ class VistaHome(QWidget):
     def go_lista_transazioni(self):
        self.vista_lista_transazioni = VistaListaTransazioni()
        self.vista_lista_transazioni.show()
+
+    def go_incassi(self):
+        self.vista_incassi = VistaIncassi()
+        self.vista_incassi.show()
