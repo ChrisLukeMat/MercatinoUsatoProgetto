@@ -1,3 +1,4 @@
+import json
 import os
 import pickle
 import datetime as dt
@@ -99,14 +100,11 @@ class VistaInserisciTransazione(QWidget):
         mese_acquisto = self.text_mese_acquisto.text()
         anno_acquisto = self.text_anno_acquisto.text()
 
-        #controller_clienti = ControllerListaClienti()
         if giorno_acquisto == "" or mese_acquisto == "" or anno_acquisto == "":
             QMessageBox.critical(self, 'Errore', "Per favore, inserisci tutte le informazioni richieste", QMessageBox.Ok, QMessageBox.Ok)
         else:
             try:
-                #acquirente = self.controller_lista_clienti.get_cliente_by_index(self.combo_clienti.currentIndex())
                 acquirente = self.lista_clienti_salvata[self.combo_clienti.currentIndex()]
-                #oggetto_venduto = self.controller_catalogo.get_oggetto_by_index(self.combo_catalogo.currentIndex())
                 oggetto_venduto = self.catalogo_salvato[self.combo_catalogo.currentIndex()]
 
                 if acquirente.get_id_cliente() == oggetto_venduto.proprietario.get_id_cliente():
@@ -138,6 +136,24 @@ class VistaInserisciTransazione(QWidget):
                     with open('catalogo/data/catalogo_salvato.pickle', 'wb') as handle:
                         pickle.dump(self.catalogo_salvato, handle, pickle.HIGHEST_PROTOCOL)
 
+                    lista_incassi = []
+                    if os.path.isfile('incassi/incassi.json'):
+                        with open('incassi/incassi.json') as f:
+                            lista_incassi = json.load(f)
+                            f.close()
+
+                            incasso_data_parziale = 0.0
+                            for incasso in lista_incassi:
+                                if incasso.get("data") == data_acquisto.strftime("%d/%m/%Y"):
+                                    incasso_data_parziale = incasso.get("incasso")
+                                    lista_incassi.remove(incasso)
+
+                    incasso_data_tot = incasso_data_parziale + saldo_parziale
+                    incasso_json_object = {"data": data_acquisto.strftime("%d/%m/%Y"), "incasso": round(incasso_data_tot, 2)}
+                    with open('incassi/incassi.json', 'w') as f:
+                        lista_incassi.append(incasso_json_object)
+                        json.dump(lista_incassi, f)
+
                     self.callback()
                     self.close()
             except ValueError:
@@ -146,8 +162,3 @@ class VistaInserisciTransazione(QWidget):
             except IndexError or AttributeError:
                 QMessageBox.critical(self, 'Errore', "E' necessario inserire almeno un cliente e un oggetto!",
                                      QMessageBox.Ok, QMessageBox.Ok)
-            '''
-            except AttributeError:
-                QMessageBox.critical(self, 'Errore', "E' necessario inserire almeno un cliente e un oggetto!",
-                                     QMessageBox.Ok, QMessageBox.Ok)
-            '''

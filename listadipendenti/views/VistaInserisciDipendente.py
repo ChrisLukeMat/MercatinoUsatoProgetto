@@ -101,6 +101,7 @@ class VistaInserisciDipendente(QWidget):
             data_nascita = dt.date(int(anno_nascita), int(mese_nascita), int(giorno_nascita))
             self.controller.aggiungi_dipendente(
                 Dipendente(nome, cognome, cf, data_nascita, luogo_nascita, telefono, indirizzo, username, password))
+
             credenziali = {"username": username, "password": password}
             lista_credenziali = []
             if os.path.isfile('accessocredenziali/credenziali.json'):
@@ -110,6 +111,7 @@ class VistaInserisciDipendente(QWidget):
             with open('accessocredenziali/credenziali.json', 'w') as f:
                 lista_credenziali.append(credenziali)
                 json.dump(lista_credenziali, f)
+
             self.callback()
             self.close()
         else:
