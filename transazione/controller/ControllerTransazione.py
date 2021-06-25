@@ -1,6 +1,6 @@
 class ControllerTransazione:
-    def __init__(self, vendita):
-        self.model = vendita
+    def __init__(self, transazione):
+        self.model = transazione
 
     def aggiorna_saldo(self):
         return self.model.aggiorna_saldo()

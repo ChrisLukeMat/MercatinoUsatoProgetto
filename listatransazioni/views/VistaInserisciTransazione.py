@@ -7,8 +7,6 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QHBoxLayout, QSpacerItem, QSizePolicy, QPushButton, \
     QComboBox, QMessageBox
 
-from catalogo.controller.ControllerCatalogo import ControllerCatalogo
-from listaclienti.controller.ControllerListaClienti import ControllerListaClienti
 from transazione.model.Transazione import Transazione
 
 

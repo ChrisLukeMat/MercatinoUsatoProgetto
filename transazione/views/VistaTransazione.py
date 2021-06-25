@@ -1,8 +1,6 @@
-from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel
 
 from transazione.controller.ControllerTransazione import ControllerTransazione
-from transazione.model.Transazione import Transazione
 
 class VistaTransazione(QWidget):
     def __init__(self, transazione, parent=None):
@@ -19,7 +17,6 @@ class VistaTransazione(QWidget):
         v_layout.addWidget(self.get_generic_label("Acquirente: "))
         v_layout.addWidget(self.get_generic_label("Data Vendita: "))
         v_layout.addWidget(self.get_generic_label("Id Transazione: "))
-       # v_layout.addStretch()
 
         self.acquirente = self.controller.get_acquirente()
         v_layout2.addWidget(self.get_generic_label(self.controller.get_oggetto_venduto().nome))
@@ -30,12 +27,9 @@ class VistaTransazione(QWidget):
                                                    self.acquirente.get_id_cliente()))
         v_layout2.addWidget(self.get_generic_label(self.controller.get_data_vendita().strftime("%d-%m-%Y")))
         v_layout2.addWidget(self.get_generic_label(self.controller.get_id_transazione()))
-       # v_layout2.addStretch()
 
         h_layout.addLayout(v_layout)
         h_layout.addLayout(v_layout2)
-        #h_layout.setContentsMargins(15, 0, 125, 0)
-        #h_layout.addStretch()
 
         self.setLayout(h_layout)
         self.resize(500, 400)
