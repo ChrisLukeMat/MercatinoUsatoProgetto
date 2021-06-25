@@ -63,15 +63,13 @@ class VistaIncassi(QWidget):
                     self.lista_incassi.append(lista_totale[i].get("incasso"))
 
     def grafico(self, length, width):
+        plt.cla()
         dates = matplotlib.dates.date2num(self.lista_date)
         matplotlib.pyplot.plot_date(dates, self.lista_incassi, marker='o', color='blue')
-        #plt.plot(range(len(self.lista_date)), self.lista_incassi, 'bo')
-        #plt.xticks(range(len(self.lista_date)), dates)
         myFmt = mdates.DateFormatter('%d/%m')
         plt.gca().xaxis.set_major_formatter(myFmt)
         plt.xticks(dates)
 
-        #plt.yticks(self.lista_incassi)
         for i, v in enumerate(self.lista_incassi):
             plt.annotate(str(v), xy=(dates[i], v), xytext=(-7, 7), textcoords='offset points')
         plt.xlabel("Giorni")
@@ -79,7 +77,6 @@ class VistaIncassi(QWidget):
         plt.gcf().autofmt_xdate()
         plt.gcf().set_size_inches(length, width)
         plt.savefig('incassi/graficoIncassi.svg', format='svg', dpi=1200)
-        plt.show()
 
 
 class GraficoAndamento(QWidget):

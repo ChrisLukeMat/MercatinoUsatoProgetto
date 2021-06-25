@@ -92,23 +92,25 @@ class VistaModificaCliente(QWidget):
                 or indirizzo == "" or mese_nascita == "" or anno_nascita == "":
             QMessageBox.critical(self, 'Errore', "Per favore, inserisci tutte le informazioni richieste",
                                  QMessageBox.Ok, QMessageBox.Ok)
-        elif self.controlla_data(anno_nascita, mese_nascita, giorno_nascita):
-            data_nascita = dt.date(int(anno_nascita), int(mese_nascita), int(giorno_nascita))
-            self.cliente.set_nome(nome)
-            self.cliente.set_cognome(cognome)
-            self.cliente.set_cf(cf)
-            self.cliente.set_telefono(telefono)
-            self.cliente.set_indirizzo(indirizzo)
-            self.cliente.set_data_nascita(data_nascita)
-            self.cliente.set_luogo_nascita(luogo_nascita)
-            self.callback()
-            self.close()
         else:
-            QMessageBox.critical(self, 'Errore', "Indicare valori corretti per la data", QMessageBox.Ok, QMessageBox.Ok)
+            try:
+                data_nascita = dt.date(int(anno_nascita), int(mese_nascita), int(giorno_nascita))
+                self.cliente.set_nome(nome)
+                self.cliente.set_cognome(cognome)
+                self.cliente.set_cf(cf)
+                self.cliente.set_telefono(telefono)
+                self.cliente.set_indirizzo(indirizzo)
+                self.cliente.set_data_nascita(data_nascita)
+                self.cliente.set_luogo_nascita(luogo_nascita)
+                self.callback()
+                self.close()
+            except ValueError:
+                QMessageBox.critical(self, 'Errore', "Indicare valori corretti per la data!",
+                                     QMessageBox.Ok, QMessageBox.Ok)
+            except IndexError:
+                QMessageBox.critical(self, 'Errore', "Indicare valori corretti per la data!",
+                                     QMessageBox.Ok, QMessageBox.Ok)
+            except AttributeError:
+                QMessageBox.critical(self, 'Errore', "Indicare valori corretti per la data!",
+                                     QMessageBox.Ok, QMessageBox.Ok)
 
-    def controlla_data(self, anno, mese, giorno):
-        try:
-            dt.date(int(anno), int(mese), int(giorno))
-        except:
-            return False
-        return True

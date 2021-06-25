@@ -1,7 +1,6 @@
 import datetime as dt
 from PyQt5.QtWidgets import QWidget, QMessageBox, QLabel, QVBoxLayout, QLineEdit, QSpacerItem, QSizePolicy, QPushButton, \
     QHBoxLayout
-from PyQt5.QtCore import Qt
 
 from cliente.model.Cliente import Cliente
 
@@ -84,18 +83,19 @@ class VistaInserisciCliente(QWidget):
         if nome == "" or cognome == "" or cf == "" or giorno_nascita == "" or luogo_nascita == "" or telefono == "" \
                 or indirizzo == "" or mese_nascita == "" or anno_nascita == "":
             QMessageBox.critical(self, 'Errore', "Per favore, inserisci tutte le informazioni richieste", QMessageBox.Ok, QMessageBox.Ok)
-        elif self.controlla_data(anno_nascita, mese_nascita, giorno_nascita):
-            data_nascita = dt.date(int(anno_nascita), int(mese_nascita), int(giorno_nascita))
-            self.controller.aggiungi_cliente(
-                Cliente(nome, cognome, cf, data_nascita, luogo_nascita, telefono, indirizzo))
-            self.callback()
-            self.close()
         else:
-            QMessageBox.critical(self, 'Errore', "Indicare valori corretti per la data", QMessageBox.Ok, QMessageBox.Ok)
-
-    def controlla_data(self, anno, mese, giorno):
-        try:
-            dt.date(int(anno), int(mese), int(giorno))
-        except:
-            return False
-        return True
+            try:
+                data_nascita = dt.date(int(anno_nascita), int(mese_nascita), int(giorno_nascita))
+                self.controller.aggiungi_cliente(
+                    Cliente(nome, cognome, cf, data_nascita, luogo_nascita, telefono, indirizzo))
+                self.callback()
+                self.close()
+            except ValueError:
+                QMessageBox.critical(self, 'Errore', "Indicare valori corretti per la data!",
+                                     QMessageBox.Ok, QMessageBox.Ok)
+            except IndexError:
+                QMessageBox.critical(self, 'Errore', "Indicare valori corretti per la data!",
+                                     QMessageBox.Ok, QMessageBox.Ok)
+            except AttributeError:
+                QMessageBox.critical(self, 'Errore', "Indicare valori corretti per la data!",
+                                     QMessageBox.Ok, QMessageBox.Ok)

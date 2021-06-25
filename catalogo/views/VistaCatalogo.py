@@ -1,12 +1,9 @@
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QSizePolicy, QMessageBox, QLabel
-from PyQt5.QtCore import Qt
 
 from catalogo.controller.ControllerCatalogo import ControllerCatalogo
 from catalogo.views.VistaInserisciOggetto import VistaInserisciOggetto
 from catalogo.views.VistaModificaOggetto import VistaModificaOggetto
-from listatransazioni.controller.ControllerListaTransazioni import ControllerListaTransazioni
-from listatransazioni.views.VistaInserisciTransazione import VistaInserisciTransazione
 from oggetto.views.VistaOggetto import VistaOggetto
 
 
@@ -29,7 +26,6 @@ class VistaCatalogo(QWidget):
         buttons_layout.addWidget(self.get_generic_button("Nuovo", self.show_new_oggetto))
         buttons_layout.addWidget(self.get_generic_button("Elimina", self.show_elimina_oggetto))
         buttons_layout.addWidget(self.get_generic_button("Modifica", self.show_modifica_oggetto))
-        #buttons_layout.addWidget(self.get_generic_button("Vendi", self.show_vendi_oggetto))
 
         buttons_layout.addStretch()
         h_layout.addLayout(buttons_layout)

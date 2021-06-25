@@ -4,8 +4,6 @@ import os
 
 from PyQt5.QtWidgets import QWidget, QMessageBox, QLabel, QVBoxLayout, QLineEdit, QSpacerItem, QSizePolicy, QPushButton, \
     QHBoxLayout
-from PyQt5.QtCore import Qt
-
 from dipendente.model.Dipendente import Dipendente
 
 class VistaInserisciDipendente(QWidget):
@@ -97,29 +95,30 @@ class VistaInserisciDipendente(QWidget):
         if nome == "" or cognome == "" or cf == "" or giorno_nascita == "" or luogo_nascita == "" or telefono == "" \
                 or indirizzo == "" or mese_nascita == "" or anno_nascita == "" or username == "" or password == "":
             QMessageBox.critical(self, 'Errore', "Per favore, inserisci tutte le informazioni richieste", QMessageBox.Ok, QMessageBox.Ok)
-        elif self.controlla_data(anno_nascita, mese_nascita, giorno_nascita):
-            data_nascita = dt.date(int(anno_nascita), int(mese_nascita), int(giorno_nascita))
-            self.controller.aggiungi_dipendente(
-                Dipendente(nome, cognome, cf, data_nascita, luogo_nascita, telefono, indirizzo, username, password))
-
-            credenziali = {"username": username, "password": password}
-            lista_credenziali = []
-            if os.path.isfile('accessocredenziali/credenziali.json'):
-                with open('accessocredenziali/credenziali.json') as f:
-                    lista_credenziali = json.load(f)
-                    f.close()
-            with open('accessocredenziali/credenziali.json', 'w') as f:
-                lista_credenziali.append(credenziali)
-                json.dump(lista_credenziali, f)
-
-            self.callback()
-            self.close()
         else:
-            QMessageBox.critical(self, 'Errore', "Indicare valori corretti per la data", QMessageBox.Ok, QMessageBox.Ok)
+            try:
+                data_nascita = dt.date(int(anno_nascita), int(mese_nascita), int(giorno_nascita))
+                self.controller.aggiungi_dipendente(
+                    Dipendente(nome, cognome, cf, data_nascita, luogo_nascita, telefono, indirizzo, username, password))
 
-    def controlla_data(self, anno, mese, giorno):
-        try:
-            dt.date(int(anno), int(mese), int(giorno))
-        except:
-            return False
-        return True
+                credenziali = {"username": username, "password": password}
+                lista_credenziali = []
+                if os.path.isfile('accessocredenziali/credenziali.json'):
+                    with open('accessocredenziali/credenziali.json') as f:
+                        lista_credenziali = json.load(f)
+                        f.close()
+                with open('accessocredenziali/credenziali.json', 'w') as f:
+                    lista_credenziali.append(credenziali)
+                    json.dump(lista_credenziali, f)
+
+                self.callback()
+                self.close()
+            except ValueError:
+                QMessageBox.critical(self, 'Errore', "Indicare valori corretti per la data!",
+                                     QMessageBox.Ok, QMessageBox.Ok)
+            except IndexError:
+                QMessageBox.critical(self, 'Errore', "Indicare valori corretti per la data!",
+                                     QMessageBox.Ok, QMessageBox.Ok)
+            except AttributeError:
+                QMessageBox.critical(self, 'Errore', "Indicare valori corretti per la data!",
+                                     QMessageBox.Ok, QMessageBox.Ok)

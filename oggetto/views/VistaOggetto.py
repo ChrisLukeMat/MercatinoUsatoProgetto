@@ -1,7 +1,5 @@
-from PyQt5.QtGui import QTextFormat, QPalette
 from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy
 from PyQt5.QtCore import Qt
-from PyQt5 import QtGui
 from oggetto.controller.ControllerOggetto import ControllerOggetto
 
 

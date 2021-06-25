@@ -1,7 +1,4 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy, QMessageBox
-
 from cliente.controller.ControllerCliente import ControllerCliente
 
 class VistaCliente(QWidget):
@@ -36,17 +33,9 @@ class VistaCliente(QWidget):
 
         h_layout.addLayout(v_layout)
         h_layout.addLayout(v_layout2)
-        #h_layout.setContentsMargins(15, 0, 125, 0)
-        #h_layout.addStretch()
 
-        #button_layout = QVBoxLayout()
-        #button_layout.addWidget(self.get_generic_button("Riscuoti saldo", self.vista_riscuoti))
-       # button_layout.setAlignment(Qt.AlignCenter)
         v_layout_tot.addLayout(h_layout)
         v_layout_tot.addWidget(self.get_generic_button("Riscuoti saldo", self.vista_riscuoti))
-        #v_layout_tot.addLayout(button_layout)
-        #v_layout_tot.setAlignment(Qt.AlignJustify)
-        #v_layout_tot.addStretch()
 
         self.setLayout(v_layout_tot)
         self.resize(500, 400)

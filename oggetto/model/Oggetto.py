@@ -1,7 +1,6 @@
 import os
 import pickle
 
-
 class Oggetto:
     cnt = 0
     cod_oggetto = 0

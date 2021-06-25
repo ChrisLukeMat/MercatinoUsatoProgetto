@@ -1,5 +1,3 @@
-from cliente.model.Cliente import Cliente
-
 class ControllerCliente:
     def __init__(self, cliente):
         self.model = cliente

@@ -1,4 +1,3 @@
-
 from catalogo.model.Catalogo import Catalogo
 
 class ControllerCatalogo():

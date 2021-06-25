@@ -54,7 +54,6 @@ class VistaInserisciOggetto(QWidget):
         self.text_categoria = QLineEdit(self)
         v_layout.addWidget(self.text_categoria)
 
-
         v_layout.addWidget(QLabel("Data esposizione"))
 
         v_layout_giorno = QVBoxLayout()

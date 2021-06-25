@@ -107,40 +107,42 @@ class VistaModificaDipendente(QWidget):
                 or indirizzo == "" or mese_nascita == "" or anno_nascita == "" or username == "" or password == "":
             QMessageBox.critical(self, 'Errore', "Per favore, inserisci tutte le informazioni richieste",
                                  QMessageBox.Ok, QMessageBox.Ok)
-        elif self.controlla_data(anno_nascita, mese_nascita, giorno_nascita):
-            data_nascita = dt.date(int(anno_nascita), int(mese_nascita), int(giorno_nascita))
-            self.dipendente.set_nome(nome)
-            self.dipendente.set_cognome(cognome)
-            self.dipendente.set_cf(cf)
-            self.dipendente.set_telefono(telefono)
-            self.dipendente.set_indirizzo(indirizzo)
-            self.dipendente.set_data_nascita(data_nascita)
-            self.dipendente.set_luogo_nascita(luogo_nascita)
-            deprecated_username = self.dipendente.get_username()
-            deprecated_password = self.dipendente.get_password()
-            self.dipendente.set_username(username)
-            self.dipendente.set_password(password)
-            credenziali = {"username": username, "password": password}
-            lista_credenziali = []
-            if os.path.isfile('accessocredenziali/credenziali.json'):
-                with open('accessocredenziali/credenziali.json') as f:
-                    lista_credenziali = json.load(f)
-                    f.close()
-
-                    for cred in lista_credenziali:
-                        if cred.get("username") == deprecated_username and cred.get("password") == deprecated_password:
-                            lista_credenziali.remove(cred)
-            with open('accessocredenziali/credenziali.json', 'w') as f:
-                lista_credenziali.append(credenziali)
-                json.dump(lista_credenziali, f)
-            self.callback()
-            self.close()
         else:
-            QMessageBox.critical(self, 'Errore', "Indicare valori corretti per la data", QMessageBox.Ok, QMessageBox.Ok)
+            try:
+                data_nascita = dt.date(int(anno_nascita), int(mese_nascita), int(giorno_nascita))
+                self.dipendente.set_nome(nome)
+                self.dipendente.set_cognome(cognome)
+                self.dipendente.set_cf(cf)
+                self.dipendente.set_telefono(telefono)
+                self.dipendente.set_indirizzo(indirizzo)
+                self.dipendente.set_data_nascita(data_nascita)
+                self.dipendente.set_luogo_nascita(luogo_nascita)
+                deprecated_username = self.dipendente.get_username()
+                deprecated_password = self.dipendente.get_password()
+                self.dipendente.set_username(username)
+                self.dipendente.set_password(password)
+                credenziali = {"username": username, "password": password}
+                lista_credenziali = []
+                if os.path.isfile('accessocredenziali/credenziali.json'):
+                    with open('accessocredenziali/credenziali.json') as f:
+                        lista_credenziali = json.load(f)
+                        f.close()
 
-    def controlla_data(self, anno, mese, giorno):
-        try:
-            dt.date(int(anno), int(mese), int(giorno))
-        except:
-            return False
-        return True
+                        for cred in lista_credenziali:
+                            if cred.get("username") == deprecated_username and cred.get(
+                                    "password") == deprecated_password:
+                                lista_credenziali.remove(cred)
+                with open('accessocredenziali/credenziali.json', 'w') as f:
+                    lista_credenziali.append(credenziali)
+                    json.dump(lista_credenziali, f)
+                self.callback()
+                self.close()
+            except ValueError:
+                QMessageBox.critical(self, 'Errore', "Indicare valori corretti per la data!",
+                                     QMessageBox.Ok, QMessageBox.Ok)
+            except IndexError:
+                QMessageBox.critical(self, 'Errore', "Indicare valori corretti per la data!",
+                                     QMessageBox.Ok, QMessageBox.Ok)
+            except AttributeError:
+                QMessageBox.critical(self, 'Errore', "Indicare valori corretti per la data!",
+                                     QMessageBox.Ok, QMessageBox.Ok)
