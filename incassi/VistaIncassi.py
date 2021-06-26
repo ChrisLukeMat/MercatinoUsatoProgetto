@@ -38,14 +38,14 @@ class VistaIncassi(QWidget):
     def show_settimana(self):
         self.riempi_liste(7)
         self.grafico(15, 9)
-        self.prova = GraficoAndamento()
-        self.prova.show()
+        self.vista = VistaGraficoAndamento()
+        self.vista.show()
 
     def show_mese(self):
         self.riempi_liste(30)
         self.grafico(15, 9)
-        self.prova = GraficoAndamento()
-        self.prova.show()
+        self.vista = VistaGraficoAndamento()
+        self.vista.show()
 
     def riempi_liste(self, numero_giorni):
         lista_totale = []
@@ -79,9 +79,9 @@ class VistaIncassi(QWidget):
         plt.savefig('incassi/graficoIncassi.svg', format='svg', dpi=1200)
 
 
-class GraficoAndamento(QWidget):
+class VistaGraficoAndamento(QWidget):
     def __init__(self, parent = None):
-        super(GraficoAndamento, self).__init__(parent)
+        super(VistaGraficoAndamento, self).__init__(parent)
 
         self.pixmap = QPixmap('incassi/graficoIncassi.svg')
         self.label = QLabel()
