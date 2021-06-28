@@ -134,13 +134,14 @@ class VistaInserisciTransazione(QWidget):
                     with open('catalogo/data/catalogo_salvato.pickle', 'wb') as handle:
                         pickle.dump(self.catalogo_salvato, handle, pickle.HIGHEST_PROTOCOL)
 
+                    incasso_data_parziale = 0.0
                     lista_incassi = []
                     if os.path.isfile('incassi/incassi.json'):
                         with open('incassi/incassi.json') as f:
                             lista_incassi = json.load(f)
                             f.close()
 
-                            incasso_data_parziale = 0.0
+
                             for incasso in lista_incassi:
                                 if incasso.get("data") == data_acquisto.strftime("%d/%m/%Y"):
                                     incasso_data_parziale = incasso.get("incasso")

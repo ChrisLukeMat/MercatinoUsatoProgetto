@@ -2,11 +2,15 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QHBoxLayout
     QMessageBox
 import datetime as dt
 
+from cliente.controller.ControllerCliente import ControllerCliente
+
 
 class VistaModificaCliente(QWidget):
     def __init__(self, cliente, callback, parent=None):
         super(VistaModificaCliente, self).__init__(parent)
-        self.cliente = cliente
+
+        #self.cliente = cliente
+        self.controller = ControllerCliente(cliente)
         self.callback = callback
 
         v_layout = QVBoxLayout()
@@ -77,7 +81,7 @@ class VistaModificaCliente(QWidget):
         self.resize(300, 450)
         self.setWindowTitle('Modifica cliente')
 
-    def modifica_cliente(self, cliente):
+    def modifica_cliente(self):
         nome = self.text_nome.text()
         cognome = self.text_cognome.text()
         cf = self.text_cf.text()
@@ -95,13 +99,20 @@ class VistaModificaCliente(QWidget):
         else:
             try:
                 data_nascita = dt.date(int(anno_nascita), int(mese_nascita), int(giorno_nascita))
-                self.cliente.set_nome(nome)
+                self.controller.set_nome(nome)
+                self.controller.set_cognome(cognome)
+                self.controller.set_cf(cf)
+                self.controller.set_telefono(telefono)
+                self.controller.set_indirizzo(indirizzo)
+                self.controller.set_data_nascita(data_nascita)
+                self.controller.set_luogo_nascita(luogo_nascita)
+                '''self.cliente.set_nome(nome)
                 self.cliente.set_cognome(cognome)
                 self.cliente.set_cf(cf)
                 self.cliente.set_telefono(telefono)
                 self.cliente.set_indirizzo(indirizzo)
                 self.cliente.set_data_nascita(data_nascita)
-                self.cliente.set_luogo_nascita(luogo_nascita)
+                self.cliente.set_luogo_nascita(luogo_nascita)'''
                 self.callback()
                 self.close()
             except ValueError:
@@ -113,4 +124,3 @@ class VistaModificaCliente(QWidget):
             except AttributeError:
                 QMessageBox.critical(self, 'Errore', "Indicare valori corretti per la data!",
                                      QMessageBox.Ok, QMessageBox.Ok)
-

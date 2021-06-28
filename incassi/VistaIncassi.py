@@ -3,7 +3,7 @@ import os
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QSizePolicy, QLabel
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QSizePolicy, QLabel, QMessageBox
 from datetime import *
 import matplotlib
 import matplotlib.pyplot as plt
@@ -37,15 +37,24 @@ class VistaIncassi(QWidget):
 
     def show_settimana(self):
         self.riempi_liste(7)
-        self.grafico(15, 9)
-        self.vista = VistaGraficoAndamento()
-        self.vista.show()
+        if len(self.lista_incassi) != 0:
+            self.grafico(15, 9)
+            self.vista = VistaGraficoAndamento()
+            self.vista.show()
+        else:
+            QMessageBox.critical(self, 'Errore', "Nessun incasso trovato nell' ultima settimana!",
+                                 QMessageBox.Ok, QMessageBox.Ok)
 
     def show_mese(self):
         self.riempi_liste(30)
-        self.grafico(15, 9)
-        self.vista = VistaGraficoAndamento()
-        self.vista.show()
+        if len(self.lista_incassi) != 0:
+            self.grafico(15, 9)
+            self.vista = VistaGraficoAndamento()
+            self.vista.show()
+        else:
+            QMessageBox.critical(self, 'Errore', "Nessun incasso trovato nell' ultimo mese!",
+                                 QMessageBox.Ok, QMessageBox.Ok)
+
 
     def riempi_liste(self, numero_giorni):
         lista_totale = []

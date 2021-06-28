@@ -11,10 +11,11 @@ class VistaListaClienti(QWidget):
     def __init__(self, parent=None):
         super(VistaListaClienti, self).__init__(parent)
 
-        h_layout = QHBoxLayout()
         self.controller = ControllerListaClienti()
         self.list_view = QListView()
         self.update_ui()
+
+        h_layout = QHBoxLayout()
         h_layout.addWidget(self.list_view)
 
         buttons_layout = QVBoxLayout()
