@@ -17,7 +17,9 @@ class VistaOggetto(QWidget):
         v_layout.addWidget(self.get_generic_label("Prezzo: "))
         v_layout.addWidget(self.get_generic_label("Id: "))
         v_layout.addWidget(self.get_generic_label("Proprietario: "))
+        v_layout.addWidget(self.get_generic_label("Categoria: "))
         v_layout.addWidget(self.get_generic_label("Data esposizione: "))
+
 
         h_layout.addLayout(v_layout)
 
@@ -30,6 +32,8 @@ class VistaOggetto(QWidget):
         cognome_proprietario = self.controller.get_proprietario_oggetto().cognome
         id_proprietario = self.controller.get_proprietario_oggetto().get_id_cliente()
         v_layout2.addWidget(self.get_generic_label(nome_proprietario + " " + cognome_proprietario + " " + id_proprietario))
+
+        v_layout2.addWidget(self.get_generic_label(str(self.controller.get_categoria_oggetto())))
 
         v_layout2.addWidget(self.get_generic_label(self.controller.get_data_esposizione_oggetto().strftime("%d-%m-%Y")))
 

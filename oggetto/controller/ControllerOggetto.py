@@ -27,10 +27,16 @@ class ControllerOggetto():
         return self.model.data_esposizione
 
     def set_data_esposizione_oggetto(self, data_esposizione):
-        self.model.set_data_esposizone(data_esposizione)
+        self.model.set_data_esposizione(data_esposizione)
 
     def get_descrizione_oggetto(self):
         return self.model.descrizione
 
     def set_descrizione_oggetto(self, descrizione):
         self.model.set_descrizione(descrizione)
+
+    def get_categoria_oggetto(self):
+        return self.model.categoria
+
+    def set_categoria_oggetto(self,categoria):
+        self.model.set_categoria(categoria)

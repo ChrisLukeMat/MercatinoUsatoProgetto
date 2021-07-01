@@ -7,21 +7,25 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QSizePolicy
     QHBoxLayout, QMessageBox, QComboBox
 import datetime as dt
 
+from oggetto.controller.ControllerOggetto import ControllerOggetto
+
+
 class VistaModificaOggetto(QWidget):
     def __init__(self, oggetto, callback, parent=None):
         super(VistaModificaOggetto, self).__init__(parent)
-        self.oggetto = oggetto
+
+        self.controller = ControllerOggetto(oggetto)
         self.callback = callback
 
         v_layout = QVBoxLayout()
         v_layout.addWidget(QLabel("Nome"))
         self.text_nome = QLineEdit(self)
-        self.text_nome.setText(oggetto.nome)
+        self.text_nome.setText(self.controller.get_nome_oggetto())
         v_layout.addWidget(self.text_nome)
 
         v_layout.addWidget(QLabel("Prezzo"))
         self.text_prezzo = QLineEdit(self)
-        self.text_prezzo.setText(str(oggetto.prezzo))
+        self.text_prezzo.setText(str(self.controller.get_prezzo_oggetto()))
         v_layout.addWidget(self.text_prezzo)
 
         self.combo_clienti = QComboBox()
@@ -31,7 +35,7 @@ class VistaModificaOggetto(QWidget):
                 self.lista_clienti_salvata = pickle.load(f)
 
             for i in range(0, len(self.lista_clienti_salvata)):
-                if oggetto.proprietario.nome == self.lista_clienti_salvata[i].nome and oggetto.proprietario.cognome == self.lista_clienti_salvata[i].cognome:
+                if self.controller.get_proprietario_oggetto().nome == self.lista_clienti_salvata[i].nome and self.controller.get_proprietario_oggetto().cognome == self.lista_clienti_salvata[i].cognome:
                     app = self.lista_clienti_salvata[0]
                     self.lista_clienti_salvata[0] = self.lista_clienti_salvata[i]
                     self.lista_clienti_salvata[i] = app
@@ -52,12 +56,12 @@ class VistaModificaOggetto(QWidget):
         self.text_descrizione = QTextEdit(self)
         self.text_descrizione.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
         self.text_descrizione.setAlignment(Qt.AlignTop)
-        self.text_descrizione.setText(self.oggetto.descrizione)
+        self.text_descrizione.setText(self.controller.get_descrizione_oggetto())
         v_layout.addWidget(self.text_descrizione)
 
         v_layout.addWidget(QLabel("Categoria"))
         self.text_categoria = QLineEdit(self)
-        self.text_categoria.setText(oggetto.categoria)
+        self.text_categoria.setText(self.controller.get_categoria_oggetto())
         v_layout.addWidget(self.text_categoria)
 
         v_layout.addWidget(QLabel("Data esposizione"))
@@ -65,19 +69,19 @@ class VistaModificaOggetto(QWidget):
         v_layout_giorno = QVBoxLayout()
         v_layout_giorno.addWidget(QLabel("Giorno"))
         self.text_giorno = QLineEdit(self)
-        self.text_giorno.setText(str(self.oggetto.data_esposizione.day))
+        self.text_giorno.setText(str(self.controller.get_data_esposizione_oggetto().day))
         v_layout_giorno.addWidget(self.text_giorno)
 
         v_layout_mese = QVBoxLayout()
         v_layout_mese.addWidget(QLabel("Mese"))
         self.text_mese = QLineEdit(self)
-        self.text_mese.setText(str(self.oggetto.data_esposizione.month))
+        self.text_mese.setText(str(self.controller.get_data_esposizione_oggetto().month))
         v_layout_mese.addWidget(self.text_mese)
 
         v_layout_anno = QVBoxLayout()
         v_layout_anno.addWidget(QLabel("Anno"))
         self.text_anno = QLineEdit(self)
-        self.text_anno.setText(str(self.oggetto.data_esposizione.year))
+        self.text_anno.setText(str(self.controller.get_data_esposizione_oggetto().year))
         v_layout_anno.addWidget(self.text_anno)
 
         h_layout = QHBoxLayout()
@@ -113,12 +117,12 @@ class VistaModificaOggetto(QWidget):
         else:
             try:
                 data_esposizione = dt.date(int(anno_esposizione), int(mese_esposizione), int(giorno_esposizione))
-                self.oggetto.set_nome(nome)
-                self.oggetto.set_prezzo(float(prezzo))
-                self.oggetto.set_proprietario(proprietario)
-                self.oggetto.set_data_esposizione(data_esposizione)
-                self.oggetto.set_descrizione(descrizione)
-                self.oggetto.set_categoria(categoria)
+                self.controller.set_nome_oggetto(nome)
+                self.controller.set_prezzo_oggetto(float(prezzo))
+                self.controller.set_proprietario_oggetto(proprietario)
+                self.controller.set_data_esposizione_oggetto(data_esposizione)
+                self.controller.set_descrizione_oggetto(descrizione)
+                self.controller.set_categoria_oggetto(categoria)
                 self.callback()
                 self.close()
             except ValueError:
