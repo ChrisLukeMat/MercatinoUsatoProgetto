@@ -9,7 +9,6 @@ class VistaModificaCliente(QWidget):
     def __init__(self, cliente, callback, parent=None):
         super(VistaModificaCliente, self).__init__(parent)
 
-        #self.cliente = cliente
         self.controller = ControllerCliente(cliente)
         self.callback = callback
 
@@ -106,13 +105,6 @@ class VistaModificaCliente(QWidget):
                 self.controller.set_indirizzo(indirizzo)
                 self.controller.set_data_nascita(data_nascita)
                 self.controller.set_luogo_nascita(luogo_nascita)
-                '''self.cliente.set_nome(nome)
-                self.cliente.set_cognome(cognome)
-                self.cliente.set_cf(cf)
-                self.cliente.set_telefono(telefono)
-                self.cliente.set_indirizzo(indirizzo)
-                self.cliente.set_data_nascita(data_nascita)
-                self.cliente.set_luogo_nascita(luogo_nascita)'''
                 self.callback()
                 self.close()
             except ValueError:

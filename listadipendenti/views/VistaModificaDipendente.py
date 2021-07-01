@@ -5,11 +5,14 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QLineEdit, QHBoxLayout
     QMessageBox
 import datetime as dt
 
+from dipendente.controller.ControllerDipendente import ControllerDipendente
+
 
 class VistaModificaDipendente(QWidget):
     def __init__(self, dipendente, callback, parent=None):
         super(VistaModificaDipendente, self).__init__(parent)
-        self.dipendente = dipendente
+
+        self.controller = ControllerDipendente(dipendente)
         self.callback = callback
 
         v_layout = QVBoxLayout()
@@ -110,17 +113,17 @@ class VistaModificaDipendente(QWidget):
         else:
             try:
                 data_nascita = dt.date(int(anno_nascita), int(mese_nascita), int(giorno_nascita))
-                self.dipendente.set_nome(nome)
-                self.dipendente.set_cognome(cognome)
-                self.dipendente.set_cf(cf)
-                self.dipendente.set_telefono(telefono)
-                self.dipendente.set_indirizzo(indirizzo)
-                self.dipendente.set_data_nascita(data_nascita)
-                self.dipendente.set_luogo_nascita(luogo_nascita)
-                deprecated_username = self.dipendente.get_username()
-                deprecated_password = self.dipendente.get_password()
-                self.dipendente.set_username(username)
-                self.dipendente.set_password(password)
+                self.controller.set_nome(nome)
+                self.controller.set_cognome(cognome)
+                self.controller.set_cf(cf)
+                self.controller.set_telefono(telefono)
+                self.controller.set_indirizzo(indirizzo)
+                self.controller.set_data_nascita(data_nascita)
+                self.controller.set_luogo_nascita(luogo_nascita)
+                deprecated_username = self.controller.get_username()
+                deprecated_password = self.controller.get_password()
+                self.controller.set_username(username)
+                self.controller.set_password(password)
                 credenziali = {"username": username, "password": password}
                 lista_credenziali = []
                 if os.path.isfile('accessocredenziali/credenziali.json'):
