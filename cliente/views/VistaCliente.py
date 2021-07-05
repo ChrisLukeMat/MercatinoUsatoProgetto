@@ -57,8 +57,8 @@ class VistaCliente(QWidget):
     def vista_riscuoti(self):
         view = QMessageBox()
         if self.controller.get_saldo() != 0.0:
-            view.setText("Riscossione andata a buon fine!")
             self.controller.set_saldo(0.0)
+            view.setText("Riscossione andata a buon fine!")
         else:
             view.setIcon(QMessageBox.Critical)
             view.setText("Saldo nullo!")

@@ -7,6 +7,8 @@ from PyQt5.QtWidgets import QWidget, QMessageBox, QLabel, QVBoxLayout, QLineEdit
 from PyQt5.QtCore import Qt
 from datetime import datetime
 import datetime as dt
+
+from cliente.model.Cliente import Cliente
 from oggetto.model.Oggetto import Oggetto
 
 
@@ -27,9 +29,12 @@ class VistaInserisciOggetto(QWidget):
 
         self.combo_clienti = QComboBox()
         self.comboclienti_model = QStandardItemModel(self.combo_clienti)
-        if os.path.isfile('listaclienti/data/lista_clienti_salvata.pickle'):
-            with open('listaclienti/data/lista_clienti_salvata.pickle', 'rb') as f:
-                self.lista_clienti_salvata = pickle.load(f)
+        # if os.path.isfile('listaclienti/data/lista_clienti_salvata.pickle'):
+        #    with open('listaclienti/data/lista_clienti_salvata.pickle', 'rb') as f:
+        #       self.lista_clienti_salvata = pickle.load(f)
+
+        self.lista_clienti_salvata = Cliente.lista_clienti()
+        if len(self.lista_clienti_salvata) != 0:
 
             for cliente in self.lista_clienti_salvata:
                 item = QStandardItem()
