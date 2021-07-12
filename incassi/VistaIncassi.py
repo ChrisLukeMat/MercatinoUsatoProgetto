@@ -74,7 +74,7 @@ class VistaIncassi(QWidget):
     def grafico(self, length, width):
         plt.cla()
         dates = matplotlib.dates.date2num(self.lista_date)
-        matplotlib.pyplot.plot_date(dates, self.lista_incassi, marker='o', color='blue')
+        matplotlib.pyplot.plot_date(dates, self.lista_incassi, color='blue')
         myFmt = mdates.DateFormatter('%d/%m')
         plt.gca().xaxis.set_major_formatter(myFmt)
         plt.xticks(dates)

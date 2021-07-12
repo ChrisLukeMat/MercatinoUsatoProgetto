@@ -29,14 +29,12 @@ class VistaInserisciOggetto(QWidget):
 
         self.combo_clienti = QComboBox()
         self.comboclienti_model = QStandardItemModel(self.combo_clienti)
-        # if os.path.isfile('listaclienti/data/lista_clienti_salvata.pickle'):
-        #    with open('listaclienti/data/lista_clienti_salvata.pickle', 'rb') as f:
-        #       self.lista_clienti_salvata = pickle.load(f)
 
-        self.lista_clienti_salvata = Cliente.lista_clienti()
-        if len(self.lista_clienti_salvata) != 0:
+        if os.path.isfile('listaclienti/data/lista_clienti_salvata.pickle'):
+           with open('listaclienti/data/lista_clienti_salvata.pickle', 'rb') as f:
+              self.lista_clienti_salvata = pickle.load(f)
 
-            for cliente in self.lista_clienti_salvata:
+           for cliente in self.lista_clienti_salvata:
                 item = QStandardItem()
                 item.setText(cliente.nome + " " + cliente.cognome + " " + cliente.id_cliente)
                 item.setEditable(False)
@@ -44,7 +42,7 @@ class VistaInserisciOggetto(QWidget):
                 font.setPointSize(18)
                 item.setFont(font)
                 self.comboclienti_model.appendRow(item)
-            self.combo_clienti.setModel(self.comboclienti_model)
+           self.combo_clienti.setModel(self.comboclienti_model)
 
         v_layout.addWidget(QLabel("Proprietario"))
         v_layout.addWidget(self.combo_clienti)

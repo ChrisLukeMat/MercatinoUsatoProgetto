@@ -72,17 +72,10 @@ class Cliente:
         return self.saldo
 
     def aggiorna_codice(self):
-        lista_clienti = Cliente.lista_clienti()
-        if len(lista_clienti) != 0:
-            for cliente in lista_clienti:
-                codice = cliente.get_id_cliente()
-            Cliente.cod_cliente = int(str(codice).split('c')[0])
-
-    @staticmethod
-    def lista_clienti():
         if os.path.isfile('listaclienti/data/lista_clienti_salvata.pickle'):
             with open('listaclienti/data/lista_clienti_salvata.pickle', 'rb') as f:
-                return pickle.load(f)
-        else:
-            return []
-
+                lista_clienti = pickle.load(f)
+                if len(lista_clienti) != 0:
+                    for cliente in lista_clienti:
+                        codice = cliente.get_id_cliente()
+                    Cliente.cod_cliente = int(str(codice).split('c')[0])
