@@ -18,7 +18,7 @@ class VistaListaTransazioni(QWidget):
 
         buttons_layout = QVBoxLayout()
         buttons_layout.addWidget(self.get_generic_button("Apri", self.show_selected_info))
-        buttons_layout.addWidget(self.get_generic_button("Nuovo", self.show_new_transazione))
+        buttons_layout.addWidget(self.get_generic_button("Nuova", self.show_new_transazione))
 
         buttons_layout.addStretch()
         h_layout.addLayout(buttons_layout)
