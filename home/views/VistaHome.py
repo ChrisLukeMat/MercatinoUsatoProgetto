@@ -1,5 +1,6 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QSizePolicy
+from PyQt5.QtCore import Qt, QSize
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QSizePolicy, QApplication
+from PyQt5 import QtGui
 
 from catalogo.views.VistaCatalogo import VistaCatalogo
 from incassi.VistaIncassi import VistaIncassi
@@ -13,7 +14,14 @@ class VistaHome(QWidget):
         super(VistaHome, self).__init__(parent)
         v_layout = QVBoxLayout()
 
-        v_layout.addWidget(self.get_generic_button("Catalogo", self.go_catalogo))
+        self.btn = self.get_generic_button("", self.go_catalogo)
+        self.icon = QtGui.QIcon()
+        self.icon.addPixmap(QtGui.QPixmap("appStyle/list.png"))
+        self.btn.setIcon(self.icon)
+        self.btn.setIconSize(QSize(QApplication.desktop().screenGeometry().width() / 7, QApplication.desktop().screenGeometry().height() / 7))
+        v_layout.addWidget(self.btn)
+
+        #v_layout.addWidget(self.get_generic_button("Catalogo", self.go_catalogo))
         v_layout.addWidget(self.get_generic_button("Lista Clienti", self.go_lista_clienti))
         v_layout.addWidget(self.get_generic_button("Lista Dipendenti", self.go_lista_dipendenti))
         v_layout.addWidget(self.get_generic_button("Lista Transazioni", self.go_lista_transazioni))
