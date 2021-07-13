@@ -14,7 +14,7 @@ class VistaHome(QWidget):
         super(VistaHome, self).__init__(parent)
         v_layout = QVBoxLayout()
 
-        self.btn = self.get_generic_button("", self.go_catalogo)
+        self.btn = self.get_generic_button("Catalogo", self.go_catalogo)
         self.icon = QtGui.QIcon()
         self.icon.addPixmap(QtGui.QPixmap("appStyle/list.png"))
         self.btn.setIcon(self.icon)
