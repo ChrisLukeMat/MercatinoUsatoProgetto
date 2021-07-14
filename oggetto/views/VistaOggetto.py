@@ -5,7 +5,7 @@ from oggetto.controller.ControllerOggetto import ControllerOggetto
 
 class VistaOggetto(QWidget):
     def __init__(self, oggetto, parent=None):
-        super(VistaOggetto, self).__init__()
+        super(VistaOggetto, self).__init__(parent)
         self.controller = ControllerOggetto(oggetto)
 
         v_layout_finale = QVBoxLayout()
@@ -39,8 +39,10 @@ class VistaOggetto(QWidget):
 
         h_layout.addLayout(v_layout2)
 
-        label_nome_descrizione = self.get_generic_label("Descrizione: ")
+        label_nome_descrizione = QLabel("Descrizione: ")
+        label_nome_descrizione.setStyleSheet("background-color: rgba(52,52,52,50%); border-radius: 7px; border: 1px solid black;")
         label_nome_descrizione.setAlignment(Qt.AlignTop)
+
         h_layout_desc.addWidget(label_nome_descrizione)
 
         descrizione_ogg = self.controller.get_descrizione_oggetto()
@@ -49,19 +51,22 @@ class VistaOggetto(QWidget):
             if i % 30 == 0:
                 descrizione_ogg = descrizione_ogg[:i] + "\n" + descrizione_ogg[i:]
 
-        label_descrizione = self.get_generic_label(descrizione_ogg)
+        label_descrizione = QLabel(descrizione_ogg)
+        label_descrizione.setStyleSheet(
+            "background-color: rgba(52,52,52,50%); border-radius: 7px; border: 1px solid black;")
         label_descrizione.setAlignment(Qt.AlignTop)
         h_layout_desc.addWidget(label_descrizione)
 
         v_layout_finale.addLayout(h_layout)
         v_layout_finale.addLayout(h_layout_desc)
         self.setLayout(v_layout_finale)
-        self.resize(600, 300)
+        self.resize(500, 450)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.setWindowTitle("{}".format(oggetto.nome))
 
     def get_generic_label(self, text):
         label = QLabel(str(text))
+        label.setMinimumHeight(40)
         label.setStyleSheet("background-color: rgba(52,52,52,50%); border-radius: 7px; border: 1px solid black;")
         return label
 

@@ -24,7 +24,6 @@ class TestControllerListaTransazioni(TestCase):
         controller.rimuovi_transazione_by_id(id_transazione)
         self.assertNotIn(self.transazione, controller.get_lista_transazioni())
 
-
     def test_get_transazione_by_index(self):
         controller = ControllerListaTransazioni()
         controller.aggiungi_transazione(self.transazione)

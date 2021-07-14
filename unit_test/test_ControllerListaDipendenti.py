@@ -19,9 +19,7 @@ class TestControllerListaDipendenti(TestCase):
         controller.rimuovi_dipendente_by_id(id_dipendente)
         self.assertNotIn(self.dipendente, controller.get_lista_dipendenti())
 
-
     def test_get_dipendente_by_index(self):
         controller = ControllerListaDipendenti()
         controller.aggiungi_dipendente(self.dipendente)
-        self.assertEquals(self.dipendente,
-                          controller.get_dipendente_by_index(len(controller.get_lista_dipendenti()) - 1))
+        self.assertEquals(self.dipendente, controller.get_dipendente_by_index(len(controller.get_lista_dipendenti()) - 1))

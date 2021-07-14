@@ -2,7 +2,7 @@ import json
 import os
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPixmap, QFont
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QSizePolicy, QLabel, QMessageBox
 from datetime import *
 import matplotlib
@@ -30,6 +30,7 @@ class VistaIncassi(QWidget):
         button = QPushButton(titolo)
         button.setFixedWidth(350)
         button.setFixedHeight(150)
+        button.setFont(QFont("Calibri", 12, QFont.Bold))
         button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         button.setMaximumWidth(500)
         button.clicked.connect(on_click)

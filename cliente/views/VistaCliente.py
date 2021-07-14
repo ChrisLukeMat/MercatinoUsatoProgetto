@@ -3,7 +3,7 @@ from cliente.controller.ControllerCliente import ControllerCliente
 
 class VistaCliente(QWidget):
     def __init__(self, cliente, parent=None):
-        super(VistaCliente, self).__init__()
+        super(VistaCliente, self).__init__(parent)
         self.controller = ControllerCliente(cliente)
 
         v_layout_tot = QVBoxLayout()
@@ -29,7 +29,8 @@ class VistaCliente(QWidget):
         v_layout2.addWidget(self.get_generic_label(self.controller.get_indirizzo()))
         v_layout2.addWidget(self.get_generic_label(self.controller.get_telefono()))
         v_layout2.addWidget(self.get_generic_label(self.controller.get_id_cliente()))
-        v_layout2.addWidget(self.get_generic_label(str(self.controller.get_saldo()) + " €"))
+        self.saldo = self.get_generic_label(str(self.controller.get_saldo()) + " €")
+        v_layout2.addWidget(self.saldo)
 
         h_layout.addLayout(v_layout)
         h_layout.addLayout(v_layout2)
@@ -43,6 +44,7 @@ class VistaCliente(QWidget):
 
     def get_generic_label(self, text):
         label = QLabel(str(text))
+        label.setMinimumHeight(40)
         label.setStyleSheet("background-color: rgba(52,52,52,50%); border-radius: 7px; border: 1px solid black;")
         return label
 
@@ -58,6 +60,7 @@ class VistaCliente(QWidget):
         view = QMessageBox()
         if self.controller.get_saldo() != 0.0:
             self.controller.set_saldo(0.0)
+            self.saldo.setText("0.0 €")
             view.setText("Riscossione andata a buon fine!")
         else:
             view.setIcon(QMessageBox.Critical)

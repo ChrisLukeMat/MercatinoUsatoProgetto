@@ -8,7 +8,6 @@ from PyQt5.QtCore import Qt
 from datetime import datetime
 import datetime as dt
 
-from cliente.model.Cliente import Cliente
 from oggetto.model.Oggetto import Oggetto
 
 

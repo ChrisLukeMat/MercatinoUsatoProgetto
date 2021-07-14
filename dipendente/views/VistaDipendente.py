@@ -3,7 +3,7 @@ from dipendente.controller.ControllerDipendente import ControllerDipendente
 
 class VistaDipendente(QWidget):
     def __init__(self, dipendente, parent=None):
-        super(VistaDipendente, self).__init__()
+        super(VistaDipendente, self).__init__(parent)
         self.controller = ControllerDipendente(dipendente)
 
         h_layout = QHBoxLayout()
@@ -41,5 +41,6 @@ class VistaDipendente(QWidget):
 
     def get_generic_label(self, text):
         label = QLabel(str(text))
+        label.setMinimumHeight(40)
         label.setStyleSheet("background-color: rgba(52,52,52,50%); border-radius: 7px; border: 1px solid black;")
         return label

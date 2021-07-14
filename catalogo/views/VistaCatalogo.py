@@ -1,4 +1,4 @@
-from PyQt5.QtGui import QStandardItemModel, QStandardItem
+from PyQt5.QtGui import QStandardItemModel, QStandardItem, QFont
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QSizePolicy, QMessageBox, QLabel
 
 from catalogo.controller.ControllerCatalogo import ControllerCatalogo
@@ -14,6 +14,7 @@ class VistaCatalogo(QWidget):
         self.controller = ControllerCatalogo()
         self.list_view = QListView()
         self.update_ui()
+        self.list_view.setMinimumSize(500, 400)
         h_layout = QHBoxLayout()
 
         catalogo_layout = QVBoxLayout()
@@ -36,7 +37,10 @@ class VistaCatalogo(QWidget):
 
     def get_generic_button(self, titolo, on_click):
         button = QPushButton(titolo)
-        button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        button.setFixedWidth(350)
+        button.setFixedHeight(100)
+        button.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        button.setFont(QFont("Calibri", 12, QFont.Bold))
         button.clicked.connect(on_click)
         return button
 
