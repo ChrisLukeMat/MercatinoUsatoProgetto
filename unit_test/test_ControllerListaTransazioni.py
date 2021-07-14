@@ -1,4 +1,6 @@
 from unittest import TestCase
+
+from listatransazioni.controller.ControllerListaTransazioni import ControllerListaTransazioni
 from transazione.model.Transazione import Transazione
 from cliente.model.Cliente import Cliente
 from oggetto.model.Oggetto import Oggetto
@@ -11,20 +13,19 @@ class TestControllerListaTransazioni(TestCase):
     transazione = Transazione(oggetto, cliente2, "21/06/2021")
 
     def test_aggiungi_transazione(self):
-        self.lista_transazioni = []
-        self.lista_transazioni.append(self.transazione)
-        self.assertIn(self.transazione, self.lista_transazioni)
+        controller = ControllerListaTransazioni()
+        controller.aggiungi_transazione(self.transazione)
+        self.assertIn(self.transazione, controller.get_lista_transazioni())
 
     def test_rimuovi_transazione_by_id(self):
-        self.lista_transazioni = []
-        self.lista_transazioni.append(self.transazione)
-        self.id_transazione = '1t'
-        for transazione in self.lista_transazioni:
-            if transazione.get_id_transazione() == self.id_transazione:
-                self.lista_transazioni.remove(transazione)
-        self.assertNotIn(self.transazione, self.lista_transazioni)
+        controller = ControllerListaTransazioni()
+        controller.aggiungi_transazione(self.transazione)
+        id_transazione = self.transazione.get_id_transazione()
+        controller.rimuovi_transazione_by_id(id_transazione)
+        self.assertNotIn(self.transazione, controller.get_lista_transazioni())
+
 
     def test_get_transazione_by_index(self):
-        self.lista_transazioni = []
-        self.lista_transazioni.append(self.transazione)
-        self.assertEquals(self.transazione, self.lista_transazioni[0])
+        controller = ControllerListaTransazioni()
+        controller.aggiungi_transazione(self.transazione)
+        self.assertEquals(self.transazione, controller.get_transazione_by_index(len(controller.get_lista_transazioni()) - 1))
