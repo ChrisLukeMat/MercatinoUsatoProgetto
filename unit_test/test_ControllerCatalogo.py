@@ -14,15 +14,6 @@ class TestControllerCatalogo(TestCase):
         controller.aggiungi_oggetto(self.oggetto)
         self.assertIn(self.oggetto, controller.get_catalogo())
 
-    '''def test_rimuovi_oggetto_by_id(self):
-        self.catalogo = []
-        self.catalogo.append(self.oggetto)
-        self.id_ogg = '1o'
-        for oggetto in self.catalogo:
-            if oggetto.id == self.id_ogg:
-                self.catalogo.remove(oggetto)
-        self.assertNotIn(self.oggetto, self.catalogo)'''
-
     def test_rimuovi_oggetto_by_id(self):
         controller = ControllerCatalogo()
         controller.aggiungi_oggetto(self.oggetto)
