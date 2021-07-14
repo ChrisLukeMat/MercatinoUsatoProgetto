@@ -1,7 +1,5 @@
-from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QSizePolicy, QApplication, QHBoxLayout
-from PyQt5 import QtGui
 
 from catalogo.views.VistaCatalogo import VistaCatalogo
 from incassi.VistaIncassi import VistaIncassi
@@ -19,9 +17,9 @@ class VistaHome(QWidget):
         h_layout2 = QHBoxLayout()
 
         h_layout1.addWidget(self.get_generic_button("Catalogo", self.go_catalogo))
-        h_layout1.addWidget(self.get_generic_button("Lista Clienti", self.go_lista_clienti))
-        h_layout2.addWidget(self.get_generic_button("Lista Dipendenti", self.go_lista_dipendenti))
-        h_layout2.addWidget(self.get_generic_button("Lista Transazioni", self.go_lista_transazioni))
+        h_layout1.addWidget(self.get_generic_button("Clienti", self.go_lista_clienti))
+        h_layout2.addWidget(self.get_generic_button("Dipendenti", self.go_lista_dipendenti))
+        h_layout2.addWidget(self.get_generic_button("Transazioni", self.go_lista_transazioni))
         h_layout2.addWidget(self.get_generic_button("Incassi", self.go_incassi))
 
         v_layout.addLayout(h_layout1)
