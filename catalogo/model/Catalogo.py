@@ -1,6 +1,6 @@
 import os
 import pickle
-
+from datetime import *
 
 class Catalogo():
     def __init__(self):
@@ -9,6 +9,21 @@ class Catalogo():
             with open('catalogo/data/catalogo_salvato.pickle', 'rb') as f:
                 catalogo_salvato = pickle.load(f)
             self.catalogo = catalogo_salvato
+            for oggetto in self.catalogo:
+                if not oggetto.sconto25:
+                    if date.today() - oggetto.data_esposizione > timedelta(days = 30):
+                        oggetto.sconto25 = True
+                        oggetto.prezzo = oggetto.prezzo - (25/100 * oggetto.prezzo)
+
+                if not oggetto.sconto50:
+                    if date.today() - oggetto.data_esposizione > timedelta(days = 60):
+                        oggetto.sconto50 = True
+                        oggetto.prezzo = oggetto.prezzo * 100 / (100 - 25)
+                        oggetto.prezzo = oggetto.prezzo - (50/100 * oggetto.prezzo)
+
+                oggetto.prezzo = round(oggetto.prezzo, 2)
+
+            self.save_data()
 
     def aggiungi_oggetto(self, oggetto):
         self.catalogo.append(oggetto)

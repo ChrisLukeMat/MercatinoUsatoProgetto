@@ -69,9 +69,3 @@ class VistaOggetto(QWidget):
         label.setMinimumHeight(40)
         label.setStyleSheet("background-color: rgba(52,52,52,50%); border-radius: 7px; border: 1px solid black;")
         return label
-
-    def get_generic_button(self, titolo, on_click):
-        button = QPushButton(titolo)
-        button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        button.clicked.connect(on_click)
-        return button

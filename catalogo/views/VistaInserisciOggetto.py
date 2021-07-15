@@ -108,6 +108,7 @@ class VistaInserisciOggetto(QWidget):
             try:
                 proprietario = self.lista_clienti_salvata[self.combo_clienti.currentIndex()]
                 data_esposizione = dt.date(int(anno_esposizione), int(mese_esposizione), int(giorno_esposizione))
+                prezzo = round(float(prezzo), 2)
                 self.controller.aggiungi_oggetto(
                     Oggetto(nome, proprietario, float(prezzo), data_esposizione, descrizione, categoria))
                 self.callback()

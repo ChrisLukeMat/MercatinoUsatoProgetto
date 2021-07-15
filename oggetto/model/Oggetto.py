@@ -5,6 +5,8 @@ class Oggetto:
     cnt = 0
     cod_oggetto = 0
     def __init__(self, nome, proprietario, prezzo, data_esposizione, descrizione, categoria):
+        self.sconto25 = False
+        self.sconto50 = False
         self.nome = nome
         self.proprietario = proprietario
         self.prezzo = prezzo

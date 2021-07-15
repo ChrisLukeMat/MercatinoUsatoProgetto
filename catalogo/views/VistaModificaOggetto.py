@@ -118,6 +118,7 @@ class VistaModificaOggetto(QWidget):
             try:
                 data_esposizione = dt.date(int(anno_esposizione), int(mese_esposizione), int(giorno_esposizione))
                 self.controller.set_nome_oggetto(nome)
+                prezzo = round(float(prezzo), 2)
                 self.controller.set_prezzo_oggetto(float(prezzo))
                 self.controller.set_proprietario_oggetto(proprietario)
                 self.controller.set_data_esposizione_oggetto(data_esposizione)
