@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QPushButton, QSizePolicy
+from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout, QSizePolicy
 from PyQt5.QtCore import Qt
 from oggetto.controller.ControllerOggetto import ControllerOggetto
 
@@ -19,7 +19,6 @@ class VistaOggetto(QWidget):
         v_layout.addWidget(self.get_generic_label("Proprietario: "))
         v_layout.addWidget(self.get_generic_label("Categoria: "))
         v_layout.addWidget(self.get_generic_label("Data esposizione: "))
-
 
         h_layout.addLayout(v_layout)
 

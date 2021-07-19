@@ -1,5 +1,5 @@
 from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QSizePolicy, QApplication, QHBoxLayout
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QSizePolicy, QHBoxLayout
 
 from catalogo.views.VistaCatalogo import VistaCatalogo
 from incassi.VistaIncassi import VistaIncassi

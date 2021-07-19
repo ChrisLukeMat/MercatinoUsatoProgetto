@@ -1,11 +1,10 @@
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QFont
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QSizePolicy, QMessageBox, QLabel
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QListView, QVBoxLayout, QPushButton, QSizePolicy, QMessageBox
 
 from catalogo.controller.ControllerCatalogo import ControllerCatalogo
 from catalogo.views.VistaInserisciOggetto import VistaInserisciOggetto
 from catalogo.views.VistaModificaOggetto import VistaModificaOggetto
 from oggetto.views.VistaOggetto import VistaOggetto
-
 
 class VistaCatalogo(QWidget):
     def __init__(self, parent=None):
